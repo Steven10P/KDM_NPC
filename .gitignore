@@ -26,3 +26,7 @@ kaggle.json
 # Sistema
 Thumbs.db
 .DS_Store
+
+# Repos git anidados dentro de skills (no versionables como gitlinks)
+.claude/skills/embedding-kit/
+.claude/skills/ml-experiment-skills/
