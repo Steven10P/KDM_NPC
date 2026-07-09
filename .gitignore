@@ -16,6 +16,13 @@ datasets/
 *.zip
 *.tar.gz
 
+# Repos de referencia clonados (no versionar dentro de este repo)
+external/
+
+# Experimentos y credenciales de servicios
+wandb/
+kaggle.json
+
 # Sistema
 Thumbs.db
 .DS_Store

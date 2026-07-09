@@ -1,0 +1,15 @@
+name: tesis_kdm_npc
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - torch>=2.2
+      - numpy
+      - scipy
+      - scikit-learn
+      - wandb
+      - kaggle
+      - jupyterlab
+      - git+https://github.com/fagonzalezo/kdm.git

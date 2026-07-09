@@ -1,0 +1,85 @@
+{
+  "skill_name": "data-analyst",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Haz el análisis estadístico completo de los modelos KDM y NPC. El proyecto está en C:\\Users\\bspd2\\Maestria\\Analisis-KDM-PNC. El MLflow está en mlflow.db y los resultados experimentales en resultados/mnist_noise/. Necesito: estadística descriptiva, prueba de normalidad Shapiro-Wilk, prueba de significancia (T-Student o Mann-Whitney), boxplots y violin plots, curvas ROC, heatmap de diferencias entre matrices de confusión, y el archivo statistical_report.md. Guarda todo en experiments/plots/ como PDF y PNG a 300 DPI.",
+      "expected_output": "Python analysis script saved to experiments/analysis.py, at least 5 figures in experiments/plots/ (PDF+PNG), statistical_report.md with p-value interpretation and model superiority conclusion",
+      "files": [],
+      "assertions": [
+        {
+          "name": "analysis_script_created",
+          "description": "A Python analysis script (analysis.py or similar) is created in experiments/"
+        },
+        {
+          "name": "figures_saved_as_pdf_and_png",
+          "description": "At least one figure is saved in both .pdf and .png format in experiments/plots/"
+        },
+        {
+          "name": "statistical_report_created",
+          "description": "statistical_report.md is created and contains statistical test results"
+        },
+        {
+          "name": "report_contains_pvalue",
+          "description": "statistical_report.md mentions p-value and interprets statistical significance"
+        },
+        {
+          "name": "report_has_model_conclusion",
+          "description": "Report declares which model is superior and under what conditions"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "Compara KDM vs NPC en los resultados del experimento mnist_dim_3_min_3_noise_1. Genera boxplots de accuracy, violin plots, y las curvas ROC multi-clase. El proyecto está en C:\\Users\\bspd2\\Maestria\\Analisis-KDM-PNC. Recuerda que NPC tuvo pérdida NaN durante el entrenamiento — documenta esto en el reporte. Guarda figuras como PDF y PNG a 300 DPI en experiments/plots/.",
+      "expected_output": "Boxplot figure, violin plot figure, ROC curve figure (all as PDF+PNG). NaN loss for NPC documented in analysis.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "boxplot_generated",
+          "description": "A boxplot or bar chart comparing KDM vs NPC accuracy is generated"
+        },
+        {
+          "name": "nan_loss_documented",
+          "description": "The analysis code or report explicitly handles or documents NaN loss for NPC"
+        },
+        {
+          "name": "300_dpi_used",
+          "description": "Figures are saved with dpi=300 parameter"
+        },
+        {
+          "name": "both_pdf_and_png",
+          "description": "Code saves figures in both .pdf and .png format"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Genera el reporte estadístico final statistical_report.md para mi tesis de maestría comparando KDM (42% accuracy) y NPC (10% accuracy, pérdida NaN) en el dataset mnist_dim_3_min_3_noise_1 (MNIST reducido a 3 dimensiones con PCA y ruido gaussiano sigma=1). Incluye: resumen ejecutivo, tablas de estadística descriptiva, resultados de la prueba de normalidad, resultado de Mann-Whitney U o T-Student con interpretación del p-valor, discusión científica de por qué NPC colapsa en datos PCA-3D, y recomendaciones. Proyecto en C:\\Users\\bspd2\\Maestria\\Analisis-KDM-PNC.",
+      "expected_output": "statistical_report.md with all required sections: executive summary, descriptive stats table, normality test results, significance test with p-value, scientific discussion of NPC collapse on PCA data, recommendations.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "report_has_executive_summary",
+          "description": "Report includes an executive summary section"
+        },
+        {
+          "name": "report_has_descriptive_stats",
+          "description": "Report includes descriptive statistics (mean, std, etc.)"
+        },
+        {
+          "name": "report_has_significance_test",
+          "description": "Report includes a statistical significance test (T-test or Mann-Whitney)"
+        },
+        {
+          "name": "report_explains_npc_collapse",
+          "description": "Report scientifically explains why NPC produces NaN loss or collapses on PCA-3D data"
+        },
+        {
+          "name": "report_has_recommendations",
+          "description": "Report includes a recommendations section for future work"
+        }
+      ]
+    }
+  ]
+}
