@@ -1,0 +1,21 @@
+# NUNCA subir credenciales
+github_token.txt
+*.token
+.env
+
+# Python / notebooks
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+venv/
+.venv/
+
+# Datos pesados (descargar con scripts, no versionar)
+data/
+datasets/
+*.zip
+*.tar.gz
+
+# Sistema
+Thumbs.db
+.DS_Store
