@@ -1,0 +1,5 @@
+dataset,n_samples,n_classes,n_attributes,avg_values_per_attr,annotation_level,multi_valued
+MNIST-Addition,35000,19,2,10.0,instance,no
+GTSRB,39270,43,4,10.75,class (paper-derived),no
+CelebA,202599,127,5,2.0,instance,"yes (mouth, cosmetic)"
+AwA2,37322,50,4,7.25,class,yes (all 4 attrs)
