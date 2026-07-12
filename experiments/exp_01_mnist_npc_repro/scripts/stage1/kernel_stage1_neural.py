@@ -59,16 +59,22 @@ def run(cmd, cwd=None, name=None):
 
 
 # --------------------------------------------------------------------------
-# 1. Entorno pinneado (npc-models/requirements.txt; sin PyQt5 — GUI no usada)
+# 1. Entorno (base: npc-models/requirements.txt; sin PyQt5 — GUI no usada)
 #
-# NOTA: --index-url https://download.pytorch.org/whl/cu121 falla en Kaggle
-# (DNS no resuelve ese dominio aunque enable_internet=true — dominio no
-# permitido en su red). El PyPI estándar (siempre permitido) ya sirve
-# wheels de torch==2.1.2 con CUDA incluido, así que se instala desde ahí.
+# DOS desviaciones forzadas por la plataforma Kaggle, ambas documentadas en
+# IMPLEMENTATION.md:
+#  - --index-url https://download.pytorch.org/whl/cu121 falla (DNS no
+#    resuelve ese dominio); se instala desde PyPI estándar en su lugar.
+#  - torch==2.1.2 (el pin exacto del paper) no tiene wheels para Python 3.12
+#    (la imagen de Kaggle corre 3.12; 2.1.2 es pre-3.12). Se usa 2.2.2, el
+#    primer 2.2.x estable — misma serie mayor, API idéntica para lo que usa
+#    este pipeline (nn.Module, DataParallel, SGD, ReduceLROnPlateau,
+#    torchvision.models.resnet34). De paso 2.2.2 también satisface el
+#    torch>=2.2 que exige kdm-torch, alineando el entorno con el lado KDM.
 # --------------------------------------------------------------------------
 t_env = time.time()
 run([sys.executable, "-m", "pip", "install", "-q",
-     "torch==2.1.2", "torchvision==0.16.2"])
+     "torch==2.2.2", "torchvision==0.17.2"])
 run([sys.executable, "-m", "pip", "install", "-q",
      "numpy<2", "natsort==8.0.2", "torch_explain==1.5.1",
      "scikit-learn==1.3.2", "wandb==0.16.1", "tqdm"])

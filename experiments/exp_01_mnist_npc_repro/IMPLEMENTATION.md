@@ -107,20 +107,27 @@ TV media ≈ 0.0058 y accuracy media de conceptos ≈ 98.99 % (referencia ABM,
 Tabla 3) — orden de magnitud; el gate duro es sobre el modelo completo
 (Tabla 2: 99.171/99.189 ± std) tras etapas 2-3.
 
-## ⛔ Bloqueante actual (2026-07-12): sin acceso a internet en los kernels
+## Bloqueantes resueltos (2026-07-12)
 
-Dos intentos de la etapa 1 fallaron con `Temporary failure in name resolution`
-— primero solo contra `download.pytorch.org` (parecía bloqueo de dominio),
-pero el segundo intento (ya sin ese dominio, usando PyPI puro) también falló
-resolviendo `pypi.org`. Esto descarta un bloqueo de dominio específico: **no
-hay red en absoluto**, pese a `enable_internet: true` en `kernel-metadata.json`.
-Causa más probable: Kaggle exige **verificación telefónica de la cuenta**
-para habilitar internet en kernels — sin ella, lo desactiva silenciosamente.
-La cuota de GPU sigue intacta (30.00h/30.00h, confirmado con `kaggle quota`),
-así que **no es un problema de cuota ni de tiempo de espera** — es una
-verificación de cuenta pendiente. Acción requerida del usuario: verificar el
-número de teléfono en kaggle.com (Settings → Phone Verification) antes de
-reintentar cualquier kernel de este experimento.
+1. **Sin acceso a internet en los kernels** (intentos v1-v2). Fallaba con
+   `Temporary failure in name resolution` — primero solo contra
+   `download.pytorch.org` (parecía bloqueo de dominio), pero el intento v2
+   (ya sin ese dominio, usando PyPI puro) también falló resolviendo
+   `pypi.org`. Causa: verificación telefónica de la cuenta pendiente (Kaggle
+   desactiva la red en silencio sin ella, pese a `enable_internet: true`).
+   **Resuelto**: usuario verificó su teléfono; v3 sí resolvió DNS.
+2. **`torch==2.1.2` no tiene wheels para Python 3.12** (intento v3) — la
+   imagen de Kaggle corre Python 3.12; el pin exacto de `npc-models` es de
+   2023, anterior al soporte de 3.12 en PyTorch (mínimo disponible: 2.2.0).
+   **Resuelto**: se sube el pin a **torch==2.2.2 + torchvision==0.17.2** en
+   los tres kernels (misma serie 2.x, API idéntica para lo que usa este
+   pipeline). Efecto colateral positivo: 2.2.2 también satisface el
+   `torch>=2.2` que exige `kdm-torch`, alineando el entorno con el lado KDM
+   del proyecto (potencialmente ya no hacen falta dos envs completamente
+   separados, a confirmar cuando se arme el exp_02 con KDM).
+
+En ningún momento fue un problema de cuota: `kaggle quota` mostró 30.00h/30.00h
+de GPU disponibles durante todos los intentos.
 
 ## Desviaciones conocidas respecto al paper
 

@@ -77,10 +77,11 @@ def extract_metric(text, label):
 
 
 # --------------------------------------------------------------------------
-# 1. Entorno (mismo fix que etapa 1: PyPI directo, sin el índice de pytorch.org)
+# 1. Entorno (mismo fix que etapa 1: PyPI directo + torch 2.2.2 en vez de
+#    2.1.2, que no tiene wheels para Python 3.12 — ver kernel de etapa 1)
 # --------------------------------------------------------------------------
 t_env = time.time()
-run([sys.executable, "-m", "pip", "install", "-q", "torch==2.1.2", "torchvision==0.16.2"])
+run([sys.executable, "-m", "pip", "install", "-q", "torch==2.2.2", "torchvision==0.17.2"])
 run([sys.executable, "-m", "pip", "install", "-q",
      "numpy<2", "natsort==8.0.2", "torch_explain==1.5.1",
      "scikit-learn==1.3.2", "wandb==0.16.1", "tqdm"])
