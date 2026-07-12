@@ -11,8 +11,9 @@ venv/
 .venv/
 
 # Datos pesados (descargar con scripts, no versionar)
-data/
-datasets/
+# (anclados a la raíz: src/data/ SÍ se versiona)
+/data/
+/datasets/
 *.zip
 *.tar.gz
 
@@ -22,6 +23,9 @@ external/
 # Experimentos y credenciales de servicios
 wandb/
 kaggle.json
+kaggle_token.txt
+mlflow.db
+mlruns/
 
 # Sistema
 Thumbs.db
