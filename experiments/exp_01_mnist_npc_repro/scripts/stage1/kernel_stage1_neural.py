@@ -60,11 +60,15 @@ def run(cmd, cwd=None, name=None):
 
 # --------------------------------------------------------------------------
 # 1. Entorno pinneado (npc-models/requirements.txt; sin PyQt5 — GUI no usada)
+#
+# NOTA: --index-url https://download.pytorch.org/whl/cu121 falla en Kaggle
+# (DNS no resuelve ese dominio aunque enable_internet=true — dominio no
+# permitido en su red). El PyPI estándar (siempre permitido) ya sirve
+# wheels de torch==2.1.2 con CUDA incluido, así que se instala desde ahí.
 # --------------------------------------------------------------------------
 t_env = time.time()
 run([sys.executable, "-m", "pip", "install", "-q",
-     "torch==2.1.2", "torchvision==0.16.2",
-     "--index-url", "https://download.pytorch.org/whl/cu121"])
+     "torch==2.1.2", "torchvision==0.16.2"])
 run([sys.executable, "-m", "pip", "install", "-q",
      "numpy<2", "natsort==8.0.2", "torch_explain==1.5.1",
      "scikit-learn==1.3.2", "wandb==0.16.1", "tqdm"])

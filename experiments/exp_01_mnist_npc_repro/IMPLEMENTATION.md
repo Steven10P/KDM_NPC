@@ -1,14 +1,29 @@
 # Implementation Plan — exp_01_mnist_npc_repro
 
-**Estado**: etapa 1 lista para lanzar; etapas 2-3 pendientes de la etapa 1.
+**Estado**: etapa 1 corriendo en Kaggle (v2, fix PyPI); kernels de etapas 2+3
+(Knowledge y Data) escritos y listos, en espera de que termine la etapa 1
+(ambos se enlazan a su output vía `kernel_sources`).
 
 ## Mapa condición → script/config
 
-| Condición | Script | Dónde corre | Estado |
+| Condición | Carpeta del kernel | Dónde corre | Estado |
 |---|---|---|---|
-| npc-neural_seed42 (etapa 1) | `scripts/kernel_stage1_neural.py` + `scripts/kernel-metadata.json` | Kaggle GPU | listo para push |
-| circuit-knowledge / circuit-data (etapa 2) | pendiente (usa `learnspn` manual.py / learnspn.bash + `train_pc.py`) | Kaggle GPU | pendiente |
-| npc-knowledge_seed42 / npc-data_seed42 (etapa 3) | pendiente (`train_npc.py`) | Kaggle GPU | pendiente |
+| npc-neural_seed42 (etapa 1) | `scripts/stage1/` | Kaggle GPU | 🟢 corriendo (v2) |
+| circuit-knowledge (etapa 2) + npc-knowledge_seed42 (etapa 3) | `scripts/stage2and3_knowledge/` | Kaggle GPU | listo, espera etapa 1 |
+| circuit-data (etapa 2) + npc-data_seed42 (etapa 3) | `scripts/stage2and3_data/` | Kaggle GPU | listo, espera etapa 1 |
+
+**Hallazgo clave (evita correr Java/LearnSPN):** el repo oficial `learnspn`
+trae **precomputados** tanto `outputs/learnspn/mnist.spn.txt` (estructura
+Data-driven, 30,743 líneas) como `outputs/manual/mnist.spn.txt` (circuito
+Knowledge, pesos = frecuencia empírica de cada regla, ya final — paper
+Proposition 1 prueba que el nodo raíz ya es la distribución conjunta
+empírica, sin necesitar CCCP). Por eso ningún kernel de este exp corre Java;
+solo se clona `learnspn` para tomar esos dos archivos ya generados.
+
+**Encadenamiento entre kernels:** los kernels de etapa 2+3 declaran
+`kernel_sources: ["bspenad10/exp01-npc-mnist-stage1-seed42"]` en su
+`kernel-metadata.json`, lo que monta el output de la etapa 1 (el checkpoint
+`.best.zip` del reconocedor) en `/kaggle/input/` sin subirlo a mano.
 
 ## Datos
 
@@ -41,6 +56,24 @@
    disabled). PyQt5 omitido (solo lo usa la GUI `interpret.py`).
 6. **Limpieza al final del kernel**: la jerarquía `npc/` (35k imágenes) se
    borra para que el output persistido sea solo `results/<condición>/`.
+7. **Circuito Knowledge sin CCCP**: `header.py`'s `config_pc["file_path_pc"]`
+   se parchea de `outputs/learnspn/` a `outputs/manual/` — el circuito ya
+   tiene pesos finales (frecuencia empírica, Proposition 1 del paper), así
+   que solo se evalúa con `test_pc.py` (sin `train_pc.py`). El circuito Data
+   sí corre `train_pc.py` (CCCP) partiendo de la estructura LearnSPN ya
+   incluida en el repo.
+8. **Métricas de etapas 2-3 capturadas directamente del stdout de
+   `train_pc.py`/`train_npc.py`** (ambos ya llaman a su propia evaluación
+   final internamente) vía `subprocess.run(capture_output=True)` + regex —
+   más simple que el patrón de re-ejecución usado en etapa 1, porque acá no
+   hace falta descubrir un run-name previo.
+9. **Encadenamiento de checkpoints entre kernels**: el `.best.zip` del
+   reconocedor (etapa 1) se localiza con un glob sobre
+   `/kaggle/input/*/npc-neural_seed*/*.best.zip` (el mount de
+   `kernel_sources` no garantiza un nombre de carpeta 100% predecible) y se
+   copia al `checkpoint_dir` que `utility.loadCheckpoint` espera —
+   `train_npc.py -w <nombre_de_archivo>` solo acepta el nombre base, no una
+   ruta absoluta.
 
 ## Comandos (desde la raíz del repo)
 
@@ -51,12 +84,21 @@ python -m kaggle datasets create -p data/kaggle_dataset_stage
 python -m kaggle datasets version -p data/kaggle_dataset_stage -m "mensaje"
 
 # Lanzar etapa 1
-python -m kaggle kernels push -p experiments/exp_01_mnist_npc_repro/scripts
+python -m kaggle kernels push -p experiments/exp_01_mnist_npc_repro/scripts/stage1
 
-# Monitorear / traer resultados
+# Lanzar etapas 2+3 (SOLO después de que la etapa 1 esté en estado COMPLETE —
+# kernel_sources necesita el output ya generado, no solo el kernel existente)
+python -m kaggle kernels push -p experiments/exp_01_mnist_npc_repro/scripts/stage2and3_knowledge
+python -m kaggle kernels push -p experiments/exp_01_mnist_npc_repro/scripts/stage2and3_data
+
+# Monitorear / traer resultados (repetir por cada slug de kernel)
 python -m kaggle kernels status bspenad10/exp01-npc-mnist-stage1-seed42
 python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage1-seed42 \
-    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output
+    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage1
+python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage23-knowledge-seed42 \
+    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage23_knowledge
+python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage23-data-seed42 \
+    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage23_data
 ```
 
 ## Criterio de aceptación etapa 1
@@ -64,6 +106,21 @@ python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage1-seed42 \
 TV media ≈ 0.0058 y accuracy media de conceptos ≈ 98.99 % (referencia ABM,
 Tabla 3) — orden de magnitud; el gate duro es sobre el modelo completo
 (Tabla 2: 99.171/99.189 ± std) tras etapas 2-3.
+
+## ⛔ Bloqueante actual (2026-07-12): sin acceso a internet en los kernels
+
+Dos intentos de la etapa 1 fallaron con `Temporary failure in name resolution`
+— primero solo contra `download.pytorch.org` (parecía bloqueo de dominio),
+pero el segundo intento (ya sin ese dominio, usando PyPI puro) también falló
+resolviendo `pypi.org`. Esto descarta un bloqueo de dominio específico: **no
+hay red en absoluto**, pese a `enable_internet: true` en `kernel-metadata.json`.
+Causa más probable: Kaggle exige **verificación telefónica de la cuenta**
+para habilitar internet en kernels — sin ella, lo desactiva silenciosamente.
+La cuota de GPU sigue intacta (30.00h/30.00h, confirmado con `kaggle quota`),
+así que **no es un problema de cuota ni de tiempo de espera** — es una
+verificación de cuenta pendiente. Acción requerida del usuario: verificar el
+número de teléfono en kaggle.com (Settings → Phone Verification) antes de
+reintentar cualquier kernel de este experimento.
 
 ## Desviaciones conocidas respecto al paper
 

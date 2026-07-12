@@ -1,0 +1,13 @@
+{
+  "id": "bspenad10/exp01-npc-mnist-stage23-knowledge-seed42",
+  "title": "exp01 NPC MNIST stage2+3 knowledge seed42",
+  "code_file": "kernel_stage2and3_knowledge.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": ["bspenad10/mnist-addition-npc"],
+  "competition_sources": [],
+  "kernel_sources": ["bspenad10/exp01-npc-mnist-stage1-seed42"]
+}
