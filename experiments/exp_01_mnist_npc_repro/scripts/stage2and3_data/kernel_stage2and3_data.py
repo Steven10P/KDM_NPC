@@ -20,6 +20,7 @@ Salidas en /kaggle/working/results/npc-data_seed<SEED>/:
 """
 
 import glob
+import gzip
 import json
 import os
 import re
@@ -27,7 +28,6 @@ import shutil
 import subprocess
 import sys
 import time
-import zipfile
 
 SEED = 42
 CONDITION = f"npc-data_seed{SEED}"
@@ -105,12 +105,15 @@ assert os.path.isfile(learnspn_spn), f"No se encontró la estructura Data en {le
 
 # --------------------------------------------------------------------------
 # 3. Dataset congelado -> jerarquía oficial + verificación de hash
+#
+# NOTA: Kaggle auto-extrae .zip/.gz al crear el dataset — llegan ya
+# descomprimidos. La carpeta de imágenes se referencia con un symlink; el
+# split se re-comprime a .gz porque split.py lo lee con gzip.open() literal.
 # --------------------------------------------------------------------------
 t_data = time.time()
 processed = f"{NPC_ROOT}/datasets/mnist/instances/processed"
-os.makedirs(processed, exist_ok=True)
-with zipfile.ZipFile(f"{INPUT_DIR}/mnist_addition_processed.zip") as zf:
-    zf.extractall(processed)
+os.makedirs(os.path.dirname(processed), exist_ok=True)
+os.symlink(f"{INPUT_DIR}/mnist_addition_processed", processed)
 assert sum(len(fs) for _, _, fs in os.walk(processed)) == 35000
 
 with open(f"{INPUT_DIR}/MANIFEST.json") as f:
@@ -119,7 +122,9 @@ assert manifest["global_sha256"] == EXPECTED_GLOBAL_SHA256
 
 cfg_dir = f"{NPC_ROOT}/npc-dataset-utils/configs/npc-dataset-utils"
 shutil.copy(f"{INPUT_DIR}/mnist.json", cfg_dir)
-shutil.copy(f"{INPUT_DIR}/mnist_split.json.gz", cfg_dir)
+with open(f"{INPUT_DIR}/mnist_split.json", "rb") as f_in:
+    with gzip.open(f"{cfg_dir}/mnist_split.json.gz", "wb") as f_out:
+        f_out.write(f_in.read())
 WALLCLOCK["data_setup"] = round(time.time() - t_data, 1)
 
 # --------------------------------------------------------------------------

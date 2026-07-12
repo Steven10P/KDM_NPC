@@ -129,6 +129,24 @@ Tabla 3) — orden de magnitud; el gate duro es sobre el modelo completo
 En ningún momento fue un problema de cuota: `kaggle quota` mostró 30.00h/30.00h
 de GPU disponibles durante todos los intentos.
 
+3. **Kaggle auto-extrae `.zip`/`.gz` al crear el dataset** (intento v4) — el
+   pipeline asumía que `mnist_addition_processed.zip` y `mnist_split.json.gz`
+   llegarían comprimidos a `/kaggle/input/`, pero Kaggle los descomprime
+   durante el procesamiento del dataset: la carpeta de imágenes llega ya
+   extraída (`mnist_addition_processed/<clase>/*.png`, verificado con
+   `kaggle datasets files`) y el split llega como `mnist_split.json` plano
+   (verificado con `kaggle datasets download -f`, 404 sobre el `.gz`
+   original). **Resuelto**: los tres kernels ahora referencian la carpeta de
+   imágenes con un symlink (sin copiar 35k archivos) y re-comprimen el split
+   a `.gz` en memoria (porque `split.py` lo lee con `gzip.open()` literal).
+   No fue necesario re-subir el dataset — solo adaptar los kernels.
+
+**Nota de tooling (Windows, no afecta a Kaggle):** descargar el output de un
+kernel con `kaggle kernels output` puede fallar con
+`'charmap' codec can't encode characters` en PowerShell — el CLI escribe
+archivos con la codificación del locale de Windows, no UTF-8. Fix: fijar
+`$env:PYTHONUTF8 = "1"` antes de invocar el CLI.
+
 ## Desviaciones conocidas respecto al paper
 
 - GPU: Kaggle P100/T4 en lugar del hardware original (no reportado en el

@@ -22,6 +22,7 @@ Salidas en /kaggle/working/results/npc-neural_seed<SEED>/:
   metrics.json, checkpoints (*.zip), environment.json
 """
 
+import gzip
 import hashlib
 import json
 import os
@@ -29,7 +30,6 @@ import shutil
 import subprocess
 import sys
 import time
-import zipfile
 
 # --------------------------------------------------------------------------
 # Parámetros de la corrida (editar por condición)
@@ -94,12 +94,17 @@ print("[INFO] commits:", commits, flush=True)
 
 # --------------------------------------------------------------------------
 # 3-4. Dataset congelado -> jerarquía oficial + verificación de hash
+#
+# NOTA: Kaggle auto-extrae archivos .zip/.gz al crear el dataset — no llegan
+# comprimidos. mnist_addition_processed.zip llega ya extraído como carpeta
+# (se referencia con un symlink, no hace falta copiar 35k archivos);
+# mnist_split.json.gz llega ya descomprimido como .json plano (se
+# re-comprime, porque split.py lo lee con gzip.open() literal).
 # --------------------------------------------------------------------------
 t_data = time.time()
 processed = f"{NPC_ROOT}/datasets/mnist/instances/processed"
-os.makedirs(processed, exist_ok=True)
-with zipfile.ZipFile(f"{INPUT_DIR}/mnist_addition_processed.zip") as zf:
-    zf.extractall(processed)
+os.makedirs(os.path.dirname(processed), exist_ok=True)
+os.symlink(f"{INPUT_DIR}/mnist_addition_processed", processed)
 
 n_files = sum(len(fs) for _, _, fs in os.walk(processed))
 assert n_files == 35000, f"Se esperaban 35000 imágenes, hay {n_files}"
@@ -112,7 +117,9 @@ assert manifest["global_sha256"] == EXPECTED_GLOBAL_SHA256, \
 # Configs oficiales (mapeos + splits de los autores) donde el pipeline los busca
 cfg_dir = f"{NPC_ROOT}/npc-dataset-utils/configs/npc-dataset-utils"
 shutil.copy(f"{INPUT_DIR}/mnist.json", cfg_dir)
-shutil.copy(f"{INPUT_DIR}/mnist_split.json.gz", cfg_dir)
+with open(f"{INPUT_DIR}/mnist_split.json", "rb") as f_in:
+    with gzip.open(f"{cfg_dir}/mnist_split.json.gz", "wb") as f_out:
+        f_out.write(f_in.read())
 WALLCLOCK["data_setup"] = round(time.time() - t_data, 1)
 
 # --------------------------------------------------------------------------
