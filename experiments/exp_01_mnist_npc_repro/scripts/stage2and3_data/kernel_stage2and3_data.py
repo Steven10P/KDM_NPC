@@ -93,7 +93,11 @@ t_env = time.time()
 run([sys.executable, "-m", "pip", "install", "-q", "torch==2.2.2", "torchvision==0.17.2"])
 run([sys.executable, "-m", "pip", "install", "-q",
      "numpy<2", "natsort==8.0.2", "torch_explain==1.5.1",
-     "scikit-learn==1.3.2", "wandb==0.16.1", "tqdm"])
+     "scikit-learn==1.3.2", "wandb==0.16.1", "tqdm",
+     # npc-dataset-utils/type.py define una clase Qt a nivel de módulo; hace
+     # falta que PyQt5 esté instalado para poder importar header.py (usado
+     # por split.py/pc.py), aunque no se use ninguna GUI.
+     "PyQt5==5.15.11"])
 WALLCLOCK["pip_install"] = round(time.time() - t_env, 1)
 
 # --------------------------------------------------------------------------
