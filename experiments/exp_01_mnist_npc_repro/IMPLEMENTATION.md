@@ -145,7 +145,25 @@ de GPU disponibles durante todos los intentos.
 kernel con `kaggle kernels output` puede fallar con
 `'charmap' codec can't encode characters` en PowerShell — el CLI escribe
 archivos con la codificación del locale de Windows, no UTF-8. Fix: fijar
-`$env:PYTHONUTF8 = "1"` antes de invocar el CLI.
+`$env:PYTHONUTF8 = "1"` antes de invocar el CLI. Además, si el kernel dejó
+output grande (p. ej. `npc/` sin limpiar por un crash), usar
+`--file-pattern ".*\.log"` para bajar solo el log sin los miles de archivos
+residuales (evita `IncompleteRead` por descargas grandes interrumpidas).
+
+4. **`/kaggle/input` anida los datasets/kernel_sources bajo una subcarpeta
+   extra** (intentos v6-v7) — la ruta real no es `/kaggle/input/<slug>/` como
+   sugiere la documentación de Kaggle, sino
+   `/kaggle/input/datasets/<slug>/` (confirmado con diagnóstico:
+   `os.listdir('/kaggle/input') == ['datasets']`). **Resuelto de forma
+   robusta**: en vez de hardcodear la ruta corregida (que podría volver a
+   cambiar), los tres kernels ahora **descubren `INPUT_DIR` en tiempo de
+   ejecución** buscando el `MANIFEST.json` único del dataset con
+   `glob.glob("/kaggle/input/**/MANIFEST.json", recursive=True)`, y el
+   checkpoint de la etapa 1 con un glob recursivo equivalente
+   (`/kaggle/input/**/npc-neural_seed*/*.best.zip`). Verificado en servidor
+   con `kaggle kernels pull -m` que `dataset_sources`/`kernel_sources` sí
+   estaban correctamente declarados — el problema era puramente de dónde
+   Kaggle los monta, no de la configuración.
 
 ## Desviaciones conocidas respecto al paper
 

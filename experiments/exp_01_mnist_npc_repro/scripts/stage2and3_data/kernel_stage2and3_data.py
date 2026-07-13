@@ -31,8 +31,15 @@ import time
 
 SEED = 42
 CONDITION = f"npc-data_seed{SEED}"
-INPUT_DIR = "/kaggle/input/mnist-addition-npc"
-STAGE1_GLOB = "/kaggle/input/*/npc-neural_seed*/*.best.zip"
+
+# Kaggle anida datasets/kernel_sources bajo /kaggle/input/{datasets,kernels}/<slug>/,
+# no directo en /kaggle/input/<slug>/ (descubierto en el kernel de etapa 1) —
+# se descubre en tiempo de ejecución, no se asume la ruta fija.
+_manifest_matches = glob.glob("/kaggle/input/**/MANIFEST.json", recursive=True)
+assert len(_manifest_matches) == 1, \
+    f"Se esperaba 1 MANIFEST.json bajo /kaggle/input, se encontraron: {_manifest_matches}"
+INPUT_DIR = os.path.dirname(_manifest_matches[0])
+STAGE1_GLOB = "/kaggle/input/**/npc-neural_seed*/*.best.zip"
 WORK = "/kaggle/working"
 NPC_ROOT = f"{WORK}/npc"
 RESULTS = f"{WORK}/results/{CONDITION}"
@@ -178,7 +185,7 @@ print(f"[INFO] Checkpoint circuito CCCP: {pc_ckpt_name}", flush=True)
 # --------------------------------------------------------------------------
 # 7. Copiar el checkpoint de la etapa 1 (montado como kernel_sources)
 # --------------------------------------------------------------------------
-stage1_matches = glob.glob(STAGE1_GLOB)
+stage1_matches = glob.glob(STAGE1_GLOB, recursive=True)
 assert len(stage1_matches) == 1, f"Se esperaba 1 checkpoint de etapa 1, hay {stage1_matches}"
 stage1_ckpt = stage1_matches[0]
 shutil.copy(stage1_ckpt, ckpt_dir)

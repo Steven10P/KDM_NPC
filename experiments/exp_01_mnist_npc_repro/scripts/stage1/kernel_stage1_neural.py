@@ -22,6 +22,7 @@ Salidas en /kaggle/working/results/npc-neural_seed<SEED>/:
   metrics.json, checkpoints (*.zip), environment.json
 """
 
+import glob
 import gzip
 import hashlib
 import json
@@ -36,7 +37,18 @@ import time
 # --------------------------------------------------------------------------
 SEED = 42
 CONDITION = f"npc-neural_seed{SEED}"
-INPUT_DIR = "/kaggle/input/mnist-addition-npc"
+
+# Kaggle anida los datasets bajo /kaggle/input/datasets/<slug>/ (no directo en
+# /kaggle/input/<slug>/ como sugiere su propia documentación) — se descubre
+# en tiempo de ejecución buscando el MANIFEST.json (único de este dataset) en
+# vez de asumir una ruta fija, para no volver a romperse si Kaggle cambia el
+# esquema de montaje otra vez.
+_manifest_matches = glob.glob("/kaggle/input/**/MANIFEST.json", recursive=True)
+assert len(_manifest_matches) == 1, \
+    f"Se esperaba 1 MANIFEST.json bajo /kaggle/input, se encontraron: {_manifest_matches}"
+INPUT_DIR = os.path.dirname(_manifest_matches[0])
+print(f"[INFO] Dataset montado en: {INPUT_DIR}", flush=True)
+
 WORK = "/kaggle/working"
 NPC_ROOT = f"{WORK}/npc"
 RESULTS = f"{WORK}/results/{CONDITION}"
