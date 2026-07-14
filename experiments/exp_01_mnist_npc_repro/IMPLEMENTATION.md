@@ -1,16 +1,34 @@
 # Implementation Plan — exp_01_mnist_npc_repro
 
-**Estado**: etapa 1 corriendo en Kaggle (v2, fix PyPI); kernels de etapas 2+3
-(Knowledge y Data) escritos y listos, en espera de que termine la etapa 1
-(ambos se enlazan a su output vía `kernel_sources`).
+**Estado (2026-07-14)**: **etapa 1 completada** (v9, ver resultados abajo);
+etapas 2+3 (Knowledge y Data) lanzadas y corriendo en paralelo.
 
 ## Mapa condición → script/config
 
 | Condición | Carpeta del kernel | Dónde corre | Estado |
 |---|---|---|---|
-| npc-neural_seed42 (etapa 1) | `scripts/stage1/` | Kaggle GPU | 🟢 corriendo (v2) |
-| circuit-knowledge (etapa 2) + npc-knowledge_seed42 (etapa 3) | `scripts/stage2and3_knowledge/` | Kaggle GPU | listo, espera etapa 1 |
-| circuit-data (etapa 2) + npc-data_seed42 (etapa 3) | `scripts/stage2and3_data/` | Kaggle GPU | listo, espera etapa 1 |
+| npc-neural_seed42 (etapa 1) | `scripts/stage1/` | Kaggle GPU | ✅ **COMPLETE** (v9) |
+| circuit-knowledge (etapa 2) + npc-knowledge_seed42 (etapa 3) | `scripts/stage2and3_knowledge/` | Kaggle GPU | 🟢 corriendo |
+| circuit-data (etapa 2) + npc-data_seed42 (etapa 3) | `scripts/stage2and3_data/` | Kaggle GPU | 🟢 corriendo |
+
+## Resultado de la etapa 1 (npc-neural_seed42, v9)
+
+| Métrica | Nuestro resultado | Referencia (Tabla 3, ABM) |
+|---|---|---|
+| TV media | 0.006457 | 0.0058 |
+| Accuracy media de conceptos | **99.08%** | 98.99% |
+
+Wall-clock: 150 épocas en 12,274s (~3.4h) sobre Tesla P100. Entorno:
+Python 3.12.13, torch 2.2.2+cu121. Checkpoint y métricas en
+`results/npc-neural_seed42/` (`metrics.json` + `git_commit.txt` versionados;
+`checkpoints/*.zip` — 172MB — excluidos de git, respaldo pendiente a Drive).
+
+**Nota sobre slugs de kernel**: Kaggle usa el slug derivado del **título**
+(no el campo `id` de `kernel-metadata.json`) cuando ambos no coinciden — los
+kernels de etapa 2+3 quedaron en `exp01-npc-mnist-stage2-3-{knowledge,data}-seed42`
+(con guión entre "stage2" y "3"), no `stage23-...` como se había declarado en
+el `id` original. Los `kernel-metadata.json` ya se corrigieron para que
+coincidan y evitar el warning en futuros pushes.
 
 **Hallazgo clave (evita correr Java/LearnSPN):** el repo oficial `learnspn`
 trae **precomputados** tanto `outputs/learnspn/mnist.spn.txt` (estructura
@@ -95,10 +113,10 @@ python -m kaggle kernels push -p experiments/exp_01_mnist_npc_repro/scripts/stag
 python -m kaggle kernels status bspenad10/exp01-npc-mnist-stage1-seed42
 python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage1-seed42 \
     -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage1
-python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage23-knowledge-seed42 \
-    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage23_knowledge
-python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage23-data-seed42 \
-    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage23_data
+python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage2-3-knowledge-seed42 \
+    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage2_3_knowledge
+python -m kaggle kernels output bspenad10/exp01-npc-mnist-stage2-3-data-seed42 \
+    -p experiments/exp_01_mnist_npc_repro/results/_kaggle_output_stage2_3_data
 ```
 
 ## Criterio de aceptación etapa 1

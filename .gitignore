@@ -30,6 +30,9 @@ mlruns/
 # Descargas crudas de logs de Kaggle (diagnóstico ad-hoc, no son metrics.json)
 experiments/*/results/_kaggle_output_*/
 
+# Checkpoints pesados (van a Drive, no a git) — solo metrics.json/git_commit.txt se versionan
+experiments/*/results/*/checkpoints/
+
 # Sistema
 Thumbs.db
 .DS_Store
