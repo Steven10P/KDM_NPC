@@ -76,13 +76,18 @@ def run(cmd, cwd=None, name=None):
 
 
 def extract_metric(text, label):
-    m = re.search(re.escape(label) + r":\s*([-\d.eE]+)", text)
+    # El log termina la oración con un "." tras el número (logger.log_info
+    # imprime "<label>: <valor>."), así que el patrón exige dígitos.dígitos
+    # (+ exponente opcional) en vez de una clase de caracteres greedy que se
+    # traga el punto final junto con el número.
+    m = re.search(re.escape(label) + r":\s*(-?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)", text)
     return float(m.group(1)) if m else None
 
 
 def extract_all(text, label):
     """Todas las ocurrencias (train_pc.py imprime esto por época; nos interesa la última = mejor checkpoint)."""
-    return [float(x) for x in re.findall(re.escape(label) + r":\s*([-\d.eE]+)", text)]
+    return [float(x) for x in
+            re.findall(re.escape(label) + r":\s*(-?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)", text)]
 
 
 # --------------------------------------------------------------------------
