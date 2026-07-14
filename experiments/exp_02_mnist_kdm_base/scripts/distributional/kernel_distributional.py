@@ -213,6 +213,12 @@ class KDMCascade(nn.Module):
 # --------------------------------------------------------------------------
 models_src = f"{NPC_ROOT}/npc-models/src/npc-models"
 sys.path.insert(0, models_src)
+# header.py resuelve dataset_config_file_path como ruta RELATIVA
+# ("../../../npc-dataset-utils/configs/...") asumiendo cwd=models_src (así
+# es como train_neural.py de NPC lo corre, vía subprocess con cwd=models_src)
+# -- acá se importa el módulo directo en este proceso, así que hace falta
+# cambiar el cwd a mano antes de instanciar NPCDataset.
+os.chdir(models_src)
 from dataset import NPCDataset  # noqa: E402
 
 tfm = torchvision.transforms.Compose([
