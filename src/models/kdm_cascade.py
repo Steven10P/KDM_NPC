@@ -109,7 +109,7 @@ class KDMCascade(nn.Module):
     @torch.no_grad()
     def init_components(self, images: torch.Tensor, digit1: torch.Tensor,
                         digit2: torch.Tensor, sum_class: torch.Tensor,
-                        forward_batch_size: int = 256) -> None:
+                        forward_batch_size: int = 256, sigma_mult: float = 1.0) -> None:
         """Inicializa c_x/c_y/c_w de las 3 capas KDM desde un batch real.
 
         `images` debe traer, para cada cabeza, al menos `n_comp_head` muestras
@@ -121,6 +121,8 @@ class KDMCascade(nn.Module):
         ResNet-34 agota memoria de GPU fácilmente).
         `digit1`/`digit2`: enteros (bs,) con el valor real de cada dígito.
         `sum_class`: enteros (bs,) con la clase-suma real (0-18).
+        `sigma_mult`: multiplicador de la heurística k-NN de `init_kdm_layer`
+        para el sigma inicial de las 3 capas (hiperparámetro de exp_03).
 
         init_kdm_layer exige que encoded_x/samples_y tengan EXACTAMENTE
         `n_comp` filas -- por eso el muestreo estratificado corta al tamaño
@@ -147,11 +149,11 @@ class KDMCascade(nn.Module):
 
         idx1 = stratified_idx(digit1, N_DIGIT_VALUES, self.n_comp_head)
         y1 = torch.nn.functional.one_hot(digit1[idx1], N_DIGIT_VALUES).float()
-        init_kdm_layer(self.head1.kdm, neck[idx1], y1, init_sigma=True)
+        init_kdm_layer(self.head1.kdm, neck[idx1], y1, init_sigma=True, sigma_mult=sigma_mult)
 
         idx2 = stratified_idx(digit2, N_DIGIT_VALUES, self.n_comp_head)
         y2 = torch.nn.functional.one_hot(digit2[idx2], N_DIGIT_VALUES).float()
-        init_kdm_layer(self.head2.kdm, neck[idx2], y2, init_sigma=True)
+        init_kdm_layer(self.head2.kdm, neck[idx2], y2, init_sigma=True, sigma_mult=sigma_mult)
 
         idx_f = stratified_idx(sum_class, N_SUM_CLASSES, self.n_comp_final)
         y_f = torch.nn.functional.one_hot(sum_class[idx_f], N_SUM_CLASSES).float()
@@ -162,4 +164,8 @@ class KDMCascade(nn.Module):
             x_f = cartesian_product([true_d1, true_d2])          # (n_comp_final, 100)
         else:
             x_f = torch.cat([true_d1, true_d2], dim=1)            # (n_comp_final, 20)
-        init_kdm_layer(self.kdm_final, x_f, y_f, init_sigma=True)
+        # nota: kdm_final usa kernel coseno (Cartesian) o CrossProductKernelLayer
+        # de dos cosenos (Distributional) -- ninguno tiene sigma (no es RBF), así
+        # que init_sigma=True no tiene efecto acá pero se deja por consistencia
+        # con la firma de init_kdm_layer.
+        init_kdm_layer(self.kdm_final, x_f, y_f, init_sigma=True, sigma_mult=sigma_mult)
