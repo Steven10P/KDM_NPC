@@ -1,0 +1,15 @@
+{
+  "id": "bspenad10/exp03-kdm-mnist-search-confirm-seed42",
+  "title": "exp03 KDM MNIST search-confirm seed42",
+  "code_file": "kernel_search_confirm.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "bspenad10/mnist-addition-npc"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
