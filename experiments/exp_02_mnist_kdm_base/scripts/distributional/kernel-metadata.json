@@ -1,0 +1,13 @@
+{
+  "id": "bspenad10/exp02-kdm-mnist-distributional-seed42",
+  "title": "exp02 KDM MNIST distributional seed42",
+  "code_file": "kernel_distributional.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": ["bspenad10/mnist-addition-npc"],
+  "competition_sources": [],
+  "kernel_sources": []
+}

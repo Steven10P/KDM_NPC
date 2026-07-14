@@ -12,3 +12,4 @@ Cómputo GPU: Kaggle Kernels (primario) / Colab (respaldo manual).
 | Exp | Título | Estado | Hipótesis (1 línea) | Veredicto | Fecha |
 |-----|-------|--------|---------------------|---------|------|
 | [exp_01](exp_01_mnist_npc_repro/DESIGN.md) | Replicación NPC en MNIST-Addition (Gate #0) | ✅ Complete | NPC(K) y NPC(D) reproducen la Tabla 2 dentro de ±1 std en nuestro ambiente | **Superado** — NPC(K) 99.20% vs 99.189±0.08%; NPC(D) 99.00% vs 99.171±0.11%; verosim. circuito K casi exacta (0.01007) | 2026-07-14 |
+| [exp_02](exp_02_mnist_kdm_base/DESIGN.md) | Cascada KDM en MNIST-Addition: Cartesian vs. Distributional | In Progress | Ambas variantes del KDM final dan efectividad similar; si es cercano, se prefiere Distributional por escalabilidad | — | 2026-07-14 |
