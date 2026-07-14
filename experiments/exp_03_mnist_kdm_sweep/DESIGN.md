@@ -31,6 +31,49 @@ del baseline de `exp_02`. 15 épocas, semilla única 42, batch 256.
 9 corridas (baseline + 8 variaciones) + 1 corrida de confirmación combinando
 los mejores valores por eje = 10 corridas cortas.
 
+### 2.1 Resultados Fase A (9/9 completas)
+
+15 épocas, semilla 42, batch 256. `classification_accuracy` = accuracy de la
+suma final (predicción del KDM final); `attribute_joint_accuracy` = accuracy
+conjunta (AND) de las 2 cabezas de dígito; `mean_tv_distance` = distancia TV
+media de las cabezas contra el one-hot verdadero (calibración, no la capa
+final).
+
+| Condición | n_comp_head | n_comp_final | lr_kdm | sigma_mult | acc suma | acc atributos | TV | train (s) |
+|---|---|---|---|---|---|---|---|---|
+| **search-lr3e3** | 100 | 190 | 3e-3 | 1.0 | **99.31%** | 99.34% | 0.0136 | 987 |
+| search-ncf380 | 100 | **380** | 1e-3 | 1.0 | 99.23% | 99.11% | 0.0495 | 991 |
+| search-ncf285 | 100 | 285 | 1e-3 | 1.0 | 99.17% | 99.17% | 0.0488 | 991 |
+| search-nch200 | **200** | 190 | 1e-3 | 1.0 | 99.14% | 99.17% | 0.0418 | 991 |
+| search-sig05 | 100 | 190 | 1e-3 | **0.5** | 99.11% | 99.14% | **0.0098** | 990 |
+| search-baseline | 100 | 190 | 1e-3 | 1.0 | 99.09% | 99.06% | 0.0561 | 989 |
+| search-nch150 | 150 | 190 | 1e-3 | 1.0 | 98.97% | 98.94% | 0.0467 | 989 |
+| search-lr3e4 | 100 | 190 | 3e-4 | 1.0 | 98.94% | 99.00% | 0.1563 | 987 |
+| search-sig20 | 100 | 190 | 1e-3 | 2.0 | 98.74% | 54.83% | 0.6712 | 996 |
+
+**Ganador por eje**: `n_comp_head=200`, `n_comp_final=380`, `lr_kdm=3e-3`,
+`sigma_mult=0.5` (mejor TV de las 9, aunque `sigma_mult=1.0` del baseline
+tiene accuracy de suma marginalmente mayor — se prioriza TV como segundo
+criterio de desempate porque mide calibración, no solo argmax).
+
+**Hallazgo a documentar (no bloqueante)**: `sigma_mult=2.0` degrada fuerte
+las cabezas (`attribute_joint_accuracy` 54.83%, TV 0.6712 — la peor de las
+9) pero la accuracy de la suma final se mantiene alta (98.74%). El kernel
+más ancho vuelve las posteriores de cada cabeza mucho menos puntudas
+(mayor entropía → peor TV), degradando el argmax por-dígito, pero el KDM
+final parece seguir acertando la mayoría de sumas — posible compensación
+parcial del ensamble final, no investigado a fondo (no es la variante
+ganadora, así que no bloquea el resto del experimento).
+
+Todas las corridas tardaron ~987-996s de entrenamiento (15 épocas) —
+`n_comp`/`lr_kdm`/`sigma_mult` no afectan materialmente el costo de cómputo
+en este rango.
+
+**Condición de confirmación (10ª)**: `search-confirm` — combina los 4
+valores ganadores (`n_comp_head=200, n_comp_final=380, lr_kdm=3e-3,
+sigma_mult=0.5`), lanzada para validar que no hay interacción negativa
+entre ejes antes de escalar a Fase B.
+
 ## 3. Fase B — Confirmación a escala completa
 
 Hiperparámetros ganadores de la Fase A, 60 épocas (vs. las 150 de NPC —
