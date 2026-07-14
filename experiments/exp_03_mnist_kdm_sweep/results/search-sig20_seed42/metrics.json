@@ -1,0 +1,59 @@
+{
+  "experiment": "exp_03_mnist_kdm_sweep",
+  "condition": "search-sig20_seed42",
+  "final_mode": "cartesian",
+  "seed": 42,
+  "hyperparameters": {
+    "epochs": 15,
+    "batch_size": 256,
+    "n_comp_head": 100,
+    "n_comp_final": 190,
+    "lr_kdm": 0.001,
+    "sigma_mult": 2.0
+  },
+  "dataset_global_sha256": "4d640365ca4b505d14ae79a83dcdc799d546a121a676e0a26a01c42fb2b9e07d",
+  "repo_commits": {
+    "npc-models": "4a46c28f7cbfcc4fd89c5460de74c573fd14002c",
+    "npc-dataset-utils": "9e06745b0fe7af9669f753d8da18ffea9ae4fa9a"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.2.2+cu121",
+    "gpu": "Tesla P100-PCIE-16GB"
+  },
+  "wallclock_seconds": {
+    "pip_install": 170.3,
+    "data_setup": 13.8,
+    "split": 9.4,
+    "init_components": 25.1,
+    "train_total": 996.0,
+    "train_per_epoch_mean": 66.4,
+    "eval": 7.3
+  },
+  "n_parameters": {
+    "total": 21412074,
+    "kdm_final": 22800
+  },
+  "loss_history": [
+    4.8858,
+    4.1056,
+    3.6158,
+    3.2278,
+    2.7511,
+    2.2423,
+    1.9317,
+    1.7758,
+    1.6751,
+    1.5787,
+    1.5028,
+    1.4349,
+    1.3678,
+    1.3058,
+    1.2387
+  ],
+  "metrics": {
+    "classification_accuracy": 0.9874285714285714,
+    "attribute_joint_accuracy": 0.5482857142857143,
+    "mean_tv_distance": 0.6712394180297852
+  }
+}
