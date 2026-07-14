@@ -35,7 +35,7 @@ las tareas.
 |---|---|---|---|
 | 00 | [`00_fundamentos_matrices_densidad.ipynb`](notebooks/00_fundamentos_matrices_densidad.ipynb) | Matrices de densidad, la tripleta (C,p,k), representación tensorial `(bs,n,d+1)`, `pure2dm`/`comp2dm`/`dm2comp`/`samples2dm`/`dm2discrete` | ✅ listo |
 | 01 | [`01_kdm_layer_y_clasificacion.ipynb`](notebooks/01_kdm_layer_y_clasificacion.ipynb) | `KDMLayer` (Ec. 12 línea por línea), kernels RBF/coseno, `init_kdm_layer`, clasificación con MNIST | ✅ listo |
-| 02 | `02_estimacion_de_densidad.ipynb` | `KDMProjLayer`, `KDMDenEstModel`, densidad por clase de dígito | ⏳ pendiente |
+| 02 | [`02_estimacion_de_densidad.ipynb`](notebooks/02_estimacion_de_densidad.ipynb) | `KDMProjLayer`, `KDMDenEstModel` (= GMM con kernel RBF), densidad por clase de dígito (PCA 2D, visualizada) | ✅ listo |
 | 03 | `03_densidades_conjuntas.ipynb` | `CrossProductKernelLayer`, `KDMJointDenEstModel`, `cartesian_product` — imagen+etiqueta conjunta (prefigura el mecanismo central de la comparación KDM-vs-NPC) | ⏳ pendiente |
 | 04 | `04_regresion.ipynb` | `KDMRegressModel`, `dm_rbf_expectation`/`dm_rbf_variance` — dataset tabular aparte | ⏳ pendiente |
 | 05 | `05_muestreo_y_generacion.ipynb` | Muestreo desde una KDM, patrón generador (c_x↔c_y invertido), generación condicional de dígitos | ⏳ pendiente |
