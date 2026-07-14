@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-14
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: In Progress
+**Status**: ✅ Complete — decisión tomada (2026-07-14): **Cartesian**
 
 ---
 
@@ -61,13 +61,47 @@ Pipeline común: imagen `(bs,3,28,56)` → tronco ResNet-34 (`fc→Identity`) �
 - **Costo**: #parámetros totales y de la etapa final.
 - Resultados en `results/<condición>/metrics.json`.
 
-## 6. Decision Rule
+## 6. Resultado y Decisión (2026-07-14)
 
-- Si una opción domina en tiempo Y efectividad → esa opción.
-- Si es un empate/trade-off cercano (diferencia de accuracy <1-2 puntos,
-  tiempo similar) → **Opción B (distributional)** por escalabilidad, según lo
-  acordado con el usuario.
-- Documentar la decisión acá antes de escalar a `exp_03` (siguiente dataset).
+| Métrica | Cartesian | Distributional |
+|---|---|---|
+| Accuracy end-to-end (suma) | **99.40%** | 97.17% |
+| Accuracy conjunta de atributos | **99.37%** | 82.57% |
+| TV media | **0.0123** | 0.1176 |
+| Tiempo/época | 65.9s | 66.6s (empatado) |
+| Parámetros del KDM final | 22,800 | 7,600 |
+
+**Decisión: Cartesian.** No fue el escenario "empate cercano" anticipado en la
+regla de decisión original — Cartesian domina en efectividad (+2.2 puntos en
+accuracy end-to-end, +16.8 puntos en accuracy conjunta de atributos) y empata
+en tiempo. Por la regla "si una opción domina en tiempo y efectividad, esa
+opción gana", se descarta Distributional pese a su ventaja teórica de
+escalabilidad.
+
+**Por qué divergen (no son equivalentes, corrección de un error de análisis
+previo):** antes de correr el experimento se asumió que ambas construcciones
+del KDM final eran matemáticamente equivalentes (mismo peso $p_1[i]p_2[j]$
+para cada combinación). Al revisar la Ec. 12 con más cuidado tras ver la
+brecha empírica: **no lo son**, porque difieren en el orden de dos
+operaciones que no conmutan:
+- *Cartesian* normaliza **una sola vez**, sobre el vector ya combinado
+  (promedio-antes-de-normalizar).
+- *Distributional* calcula un posterior normalizado **por separado para cada
+  una de las 100 combinaciones** de dígitos, y **luego** promedia esos 100
+  posteriores ya normalizados (normaliza-antes-de-promediar).
+
+Como la normalización es no lineal, promediar-y-normalizar ≠
+normalizar-y-promediar. Distributional le da voz completa (posterior afilado)
+incluso a combinaciones de dígitos poco probables antes de diluirlas en el
+promedio, lo que empeora la señal. Cartesian evita ese paso intermedio.
+
+**Implicación para los próximos datasets (GTSRB, CelebA, AwA2):** se usa
+Cartesian como construcción por defecto del KDM final. La ventaja de
+escalabilidad de Distributional (evitar materializar el vector denso
+completo) puede volver a evaluarse si el producto de cardinalidades de
+atributos crece mucho (p. ej. AwA2), pero con la penalización de efectividad
+observada acá, el trade-off ya no es obvio a favor de Distributional — habría
+que revalidar caso por caso, no asumir.
 
 ## 7. Reproducibility Checklist
 
