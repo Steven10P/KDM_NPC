@@ -179,9 +179,14 @@ class KDMCascade(nn.Module):
         return p1, p2, p_sum
 
     @torch.no_grad()
-    def init_components(self, images, digit1, digit2, sum_class):
+    def init_components(self, images, digit1, digit2, sum_class, forward_batch_size=256):
+        # correr el tronco en mini-lotes -- una sola pasada de miles de
+        # imagenes 224x224 por ResNet-34 agota memoria de GPU (CUDA OOM)
         device = next(self.parameters()).device
-        neck = self.trunk(images.to(device))
+        neck_chunks = []
+        for i in range(0, images.shape[0], forward_batch_size):
+            neck_chunks.append(self.trunk(images[i:i + forward_batch_size].to(device)))
+        neck = torch.cat(neck_chunks, dim=0)
 
         def stratified_idx(labels, n_values, n_total):
             per_value = n_total // n_values

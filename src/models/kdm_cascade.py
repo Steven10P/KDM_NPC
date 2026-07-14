@@ -108,12 +108,17 @@ class KDMCascade(nn.Module):
 
     @torch.no_grad()
     def init_components(self, images: torch.Tensor, digit1: torch.Tensor,
-                        digit2: torch.Tensor, sum_class: torch.Tensor) -> None:
+                        digit2: torch.Tensor, sum_class: torch.Tensor,
+                        forward_batch_size: int = 256) -> None:
         """Inicializa c_x/c_y/c_w de las 3 capas KDM desde un batch real.
 
         `images` debe traer, para cada cabeza, al menos `n_comp_head` muestras
         por CADA valor 0-9 (para poder muestrear estratificado), y para el
-        final al menos `n_comp_final // 19` muestras por clase-suma.
+        final al menos `n_comp_final // 19` muestras por clase-suma. Puede ser
+        grande (miles de imágenes) para garantizar la diversidad estratificada
+        -- por eso el tronco se corre en mini-lotes de `forward_batch_size`,
+        no de una sola pasada (una pasada de miles de imágenes 224x224 por
+        ResNet-34 agota memoria de GPU fácilmente).
         `digit1`/`digit2`: enteros (bs,) con el valor real de cada dígito.
         `sum_class`: enteros (bs,) con la clase-suma real (0-18).
 
@@ -122,7 +127,11 @@ class KDMCascade(nn.Module):
         exacto en vez de tomar todo lo disponible.
         """
         device = next(self.parameters()).device
-        neck = self.trunk(images.to(device))
+        neck_chunks = []
+        for i in range(0, images.shape[0], forward_batch_size):
+            chunk = images[i:i + forward_batch_size].to(device)
+            neck_chunks.append(self.trunk(chunk))
+        neck = torch.cat(neck_chunks, dim=0)
 
         def stratified_idx(labels: torch.Tensor, n_values: int, n_total: int) -> torch.Tensor:
             per_value = n_total // n_values
