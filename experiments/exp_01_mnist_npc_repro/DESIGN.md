@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-12
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: In Progress
+**Status**: ✅ Complete — Gate #0 superado (2026-07-14)
 
 ---
 
@@ -127,6 +127,27 @@ el reconocedor): TV media ≈ 0.0058, accuracy media de conceptos ≈ 98.99 %.
 
 ## 10. Next Steps
 
-1. Congelar D̄ + subirlo como Kaggle Dataset privado.
-2. `IMPLEMENTATION.md` con el mapa condición→config→kernel.
-3. Kernel etapa 1 (seed 42) → verificar métricas de atributos → etapas 2-3.
+1. ~~Congelar D̄ + subirlo como Kaggle Dataset privado.~~ ✅
+2. ~~`IMPLEMENTATION.md` con el mapa condición→config→kernel.~~ ✅
+3. ~~Kernel etapa 1 (seed 42) → verificar métricas de atributos → etapas 2-3.~~ ✅
+4. **Siguiente**: abrir `exp_02_mnist_kdm_base` (cascada KDM) — Gate #0 superado,
+   el ambiente reproduce el paper con confianza.
+
+## 11. Resultado final del Gate #0 (2026-07-14, seed 42)
+
+| Métrica | NPC(Knowledge) — nuestro | Paper | NPC(Data) — nuestro | Paper |
+|---|---|---|---|---|
+| Verosimilitud media del circuito (Tabla 4) | **0.010070** | 0.01007 | 0.009277 | 0.0101 |
+| Accuracy end-to-end (Tabla 2) | **99.20%** | 99.189 ± 0.08% | **99.00%** | 99.171 ± 0.11% |
+| TV media (post-conjunta) | 0.004602 | — | 0.005118 | — |
+| Accuracy de conceptos (post-conjunta) | 99.19% | — | 99.01% | — |
+
+**Veredicto: Gate #0 superado.** NPC(Knowledge) reproduce la verosimilitud del
+circuito casi al 5º decimal exacto; ambas variantes caen dentro o muy cerca del
+rango publicado (±1 std) en accuracy end-to-end. El ambiente (Kaggle GPU, torch
+2.2.2, dataset congelado con hash verificado) es confiable para comparar KDM
+contra este baseline en los próximos experimentos.
+
+Wall-clock total del Gate #0 (3 kernels, seed 42): etapa 1 ≈ 3.4h; etapa 2+3
+Knowledge ≈ 3.7h; etapa 2+3 Data ≈ 3.8h (incluye CCCP, 77s) — todo dentro de la
+cuota gratuita semanal de Kaggle (30h GPU).

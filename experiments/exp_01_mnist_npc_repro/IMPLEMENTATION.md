@@ -1,15 +1,15 @@
 # Implementation Plan — exp_01_mnist_npc_repro
 
-**Estado (2026-07-14)**: **etapa 1 completada** (v9, ver resultados abajo);
-etapas 2+3 (Knowledge y Data) lanzadas y corriendo en paralelo.
+**Estado (2026-07-14)**: ✅ **Gate #0 completo** — las 3 etapas, ambas variantes,
+reproducen el paper. Ver resultado final consolidado en `DESIGN.md §11`.
 
 ## Mapa condición → script/config
 
 | Condición | Carpeta del kernel | Dónde corre | Estado |
 |---|---|---|---|
-| npc-neural_seed42 (etapa 1) | `scripts/stage1/` | Kaggle GPU | ✅ **COMPLETE** (v9) |
-| circuit-knowledge (etapa 2) + npc-knowledge_seed42 (etapa 3) | `scripts/stage2and3_knowledge/` | Kaggle GPU | 🟢 corriendo |
-| circuit-data (etapa 2) + npc-data_seed42 (etapa 3) | `scripts/stage2and3_data/` | Kaggle GPU | 🟢 corriendo |
+| npc-neural_seed42 (etapa 1) | `scripts/stage1/` | Kaggle GPU | ✅ COMPLETE (v9) |
+| circuit-knowledge (etapa 2) + npc-knowledge_seed42 (etapa 3) | `scripts/stage2and3_knowledge/` | Kaggle GPU | ✅ COMPLETE (v2) |
+| circuit-data (etapa 2) + npc-data_seed42 (etapa 3) | `scripts/stage2and3_data/` | Kaggle GPU | ✅ COMPLETE (v2) |
 
 ## Resultado de la etapa 1 (npc-neural_seed42, v9)
 
