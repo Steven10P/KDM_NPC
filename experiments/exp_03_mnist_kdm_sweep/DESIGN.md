@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-14
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: In Progress
+**Status**: Fase A y B completas — pendiente Fase C (informe + gráficas) y aprobación del usuario
 
 ---
 
@@ -87,6 +87,32 @@ n_comp_final=190, lr_kdm=3e-3, sigma_mult=1.0`, idéntico a `exp_02` salvo
 Hiperparámetros ganadores de la Fase A, 60 épocas (vs. las 150 de NPC —
 justificado por la convergencia rápida ya observada en `exp_02`), 5 semillas
 (42, 52, 62, 72, 82, igual protocolo que NPC).
+
+### 3.1 Resultados Fase B (5/5 completas)
+
+| Semilla | acc suma | acc atributos | TV |
+|---|---|---|---|
+| 42 | 99.17% | 99.23% | 0.0042 |
+| 52 | 99.40% | 99.37% | 0.0037 |
+| 62 | 99.26% | 99.29% | 0.0039 |
+| 72 | 99.40% | 99.37% | 0.0039 |
+| 82 | 99.34% | 99.31% | 0.0039 |
+| **Media±std** | **99.314%±0.099%** | **99.314%±0.061%** | **0.0039±0.0002** |
+
+**Comparación final vs NPC (paper, Tabla 2)**:
+
+| Modelo | Accuracy | TV media |
+|---|---|---|
+| **KDM (exp_03, 5 semillas)** | **99.314% ± 0.099%** | 0.0039 ± 0.0002 |
+| NPC(Knowledge) (paper) | 99.189% ± 0.08% | — |
+| NPC(Data) (paper) | 99.171% ± 0.11% | — |
+
+**Veredicto**: la hipótesis del §1 se confirma — con `lr_kdm=3e-3` (único
+cambio respecto al baseline de `exp_02`) y 60 épocas, KDM **supera** la
+media reportada por NPC en ambas variantes (Knowledge y Data), con std
+comparable o menor. Los intervalos (media±std) no se solapan claramente con
+NPC(Data) y solapan parcialmente con NPC(Knowledge), pero KDM gana en media
+en los dos casos.
 
 ## 4. Presupuesto de GPU
 
