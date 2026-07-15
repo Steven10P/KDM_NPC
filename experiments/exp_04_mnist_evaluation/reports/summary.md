@@ -152,6 +152,49 @@ Usando los mecanismos ya implementados por los autores de NPC
   profundidad 5 — la estructura aprendida por LearnSPN, mucho más compleja
   para una ganancia de accuracy menor).
 
+### 5.3bis Módulo unificado y reporte comparativo directo (añadido 2026-07-15)
+
+`src/metrics/interpretability_suite.py` — módulo compartido (no vive dentro
+de `exp_04`, para poder reusarse igual en `exp_05`/GTSRB), agnóstico al
+dataset (nombres/cardinalidades de atributos se pasan como parámetros, no
+hardcodeados): `KDMExplainer` (atribución por componente, decodificación de
+tupla de atributos generalizada a K≥2 atributos, imágenes de entrenamiento
+más cercanas a un componente de cabeza en el espacio de embeddings, espectro
+de atribución) y `NPCExplainer` (envuelve `test_npc.py::findMPE`/`findCE`
+como funciones invocables por instancia — incluida una reimplementación
+fiel de la proyección exacta al símplex que usa `findCE`, no una
+aproximación por clamp+normalización).
+
+**Validado en vivo**: `NPCExplainer.mpe_query` se corrió sobre 3 instancias
+reales y coincidió exactamente con lo que `test_npc.py` ya había calculado
+en el barrido por lotes (`results/npc_knowledge_seed42/mnist.json`) — el
+módulo reproduce fielmente el mecanismo original, no es una aproximación.
+
+**Reporte comparativo** (`reports/comparison_kdm_vs_npc.pdf`, 10 páginas):
+para las 5 instancias donde KDM y NPC(Knowledge) discrepan + 5 donde ambos
+fallan, un panel de 4 partes (imagen, espectro de atribución de KDM con
+top-3 componentes decodificados, MPE de NPC, contrafactual de NPC). Ejemplo
+ilustrativo real (`44942_55030.png`, suma real=15): KDM acierta (15) con un
+espectro muy afilado (~4 órdenes de magnitud de caída) dominado por
+componentes que decodifican a (9,6); NPC falla (10) porque su MPE exacto
+revela que confundió el primer dígito (9→4, dando 4+6=10) — y su
+contrafactual sí logra corregirlo con un ajuste mínimo. El caso inverso
+(`25827_25780.png`) muestra a NPC acertando (15, MPE=(9,6)) mientras KDM
+falla con un espectro mucho menos afilado (componentes en conflicto entre
+(5,5) y (9,6)) — evidencia directa, instancia por instancia, de que los dos
+modelos fallan por razones estructuralmente distintas, visible sin
+necesitar SHAP/LIME.
+
+Demo aparte (`reports/figures/interp_kdm_nearest_training_images.png`): las
+4 imágenes de entrenamiento más cercanas al componente 0 de la cabeza
+`number-first` muestran consistentemente un primer dígito "0" — el
+prototipo, proyectado al espacio de embeddings del tronco, corresponde a un
+dígito real reconocible. El mismo experimento para `number-second`
+component 0 fue más ruidoso (los vecinos no comparten un segundo dígito tan
+limpiamente) — limitación honesta del método: el embedding compartido de
+512-dim codifica ambos dígitos a la vez, así que un componente de una
+cabeza no siempre aísla perfectamente "su" dígito en ese espacio.
+
 ### 5.3 Comparación conceptual
 
 KDM y NPC son interpretables **por construcción**, cada uno a su manera: KDM
