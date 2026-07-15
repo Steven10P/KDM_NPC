@@ -282,12 +282,30 @@ solo en Fase B)**:
 
 ## 6. Orden de ejecución recomendado
 
-1. `scripts/_build_class_mapping.py` (§1.1) + verificación manual de 3 clases.
-2. Empaquetar y subir el dataset de Kaggle (§1.2).
-3. Escribir `src/models/kdm_cascade_gtsrb.py` (§2) — verificar con un
-   forward pass de prueba local (batch pequeño, CPU) antes de subir a
-   Kaggle, igual que se hizo para MNIST-Addition en `exp_02`.
-4. Adaptar plantilla+generador de kernels de Fase A (§4, Paso 1).
-5. Correr las 10 corridas cortas de Fase A → elegir ganador (§ `DESIGN.md §5`).
-6. Si Fase A confirma un ganador: Fase B (5 semillas).
-7. Copiar y adaptar los scripts de métricas de `exp_04` (§5) → informe final.
+1. ✅ `scripts/_build_class_mapping.py` (§1.1) + verificación manual de 5
+   clases (2026-07-15) — coincide perfectamente con la numeración oficial
+   de GTSRB (ej. ClassId 14 → "regulatory--stop", octágono rojo con texto
+   "stop"; ClassId 25 → "warning--roadworks", triángulo rojo).
+2. ⏳ Empaquetar y subir el dataset de Kaggle (§1.2) — **bloqueado por
+   conectividad a internet**, pendiente de reintentar.
+3. ✅ `src/models/kdm_cascade_gtsrb.py` (§2) — verificado con un forward pass
+   de prueba local (`scripts/_test_kdm_cascade_gtsrb.py`, batch sintético de
+   430 imágenes = 10/clase × 43 clases, CPU): `init_components` y `forward`
+   corren sin errores, las 4 cabezas y la capa final producen distribuciones
+   de probabilidad válidas (suman 1). 22.87M parámetros totales (orden
+   similar a los 21.4M de MNIST-Addition). **Bug real encontrado y
+   corregido durante esta verificación**: `idx_f` (índices estratificados
+   para inicializar la capa final) se recalculaba dentro del loop por
+   atributo con una semilla aleatoria distinta cada vez, rompiendo la
+   correspondencia fila-a-fila que `cartesian_product` necesita entre los 4
+   atributos — se corrigió calculándolo una sola vez, antes del loop.
+4. ✅ Plantilla+generador de kernels de Fase A (§4, Paso 1) —
+   `scripts/{_template_kernel.py,_generate_kernel.py}`, generación validada
+   (`--only search-baseline`) y el kernel resultante pasa `py_compile` sin
+   errores de sintaxis. **Quedan 2 TODOs explícitos en la plantilla** que
+   solo se pueden llenar después del paso 2: `EXPECTED_GLOBAL_SHA256` y los
+   conteos esperados de train/validate/test.
+5. ⏳ Correr las 10 corridas cortas de Fase A → elegir ganador (`DESIGN.md
+   §5`) — depende del paso 2 (dataset en Kaggle) y de GPU.
+6. ⏳ Si Fase A confirma un ganador: Fase B (5 semillas).
+7. ⏳ Copiar y adaptar los scripts de métricas de `exp_04` (§5) → informe final.
