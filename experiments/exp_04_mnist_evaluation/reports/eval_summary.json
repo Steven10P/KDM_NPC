@@ -1,0 +1,17 @@
+{
+  "KDM": {
+    "accuracy": 0.9917142857142857,
+    "roc_auc_macro": 0.9996639032790849,
+    "ap_macro": 0.9957850753260257
+  },
+  "NPC (Knowledge)": {
+    "accuracy": 0.992,
+    "roc_auc_macro": 0.999730415194556,
+    "ap_macro": 0.9982873821815971
+  },
+  "NPC (Data)": {
+    "accuracy": 0.99,
+    "roc_auc_macro": 0.9996553806168699,
+    "ap_macro": 0.9970390770415344
+  }
+}

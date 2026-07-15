@@ -1,0 +1,1902 @@
+[
+  {
+    "component": 0,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 1,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 2,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 3,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 4,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 5,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 6,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 7,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 8,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 9,
+    "nearest_digit_pair": [
+      0,
+      0
+    ],
+    "nearest_pair_implied_sum": 0,
+    "c_y_argmax_sum_class": 0,
+    "prior_weight_c_w": 0.004153058864176273
+  },
+  {
+    "component": 10,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 11,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 12,
+    "nearest_digit_pair": [
+      0,
+      1
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.009061099030077457
+  },
+  {
+    "component": 13,
+    "nearest_digit_pair": [
+      0,
+      1
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.009061099030077457
+  },
+  {
+    "component": 14,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 15,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 16,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 17,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 18,
+    "nearest_digit_pair": [
+      0,
+      1
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.009061099030077457
+  },
+  {
+    "component": 19,
+    "nearest_digit_pair": [
+      1,
+      0
+    ],
+    "nearest_pair_implied_sum": 1,
+    "c_y_argmax_sum_class": 1,
+    "prior_weight_c_w": 0.00028026915970258415
+  },
+  {
+    "component": 20,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 21,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 22,
+    "nearest_digit_pair": [
+      0,
+      2
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.005950601305812597
+  },
+  {
+    "component": 23,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 24,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 25,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 26,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 27,
+    "nearest_digit_pair": [
+      1,
+      1
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.00636649364605546
+  },
+  {
+    "component": 28,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 29,
+    "nearest_digit_pair": [
+      2,
+      0
+    ],
+    "nearest_pair_implied_sum": 2,
+    "c_y_argmax_sum_class": 2,
+    "prior_weight_c_w": 0.004787325859069824
+  },
+  {
+    "component": 30,
+    "nearest_digit_pair": [
+      2,
+      1
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.0027760788798332214
+  },
+  {
+    "component": 31,
+    "nearest_digit_pair": [
+      3,
+      0
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.004781915806233883
+  },
+  {
+    "component": 32,
+    "nearest_digit_pair": [
+      0,
+      3
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.0057833814062178135
+  },
+  {
+    "component": 33,
+    "nearest_digit_pair": [
+      0,
+      3
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.0057833814062178135
+  },
+  {
+    "component": 34,
+    "nearest_digit_pair": [
+      0,
+      3
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.0057833814062178135
+  },
+  {
+    "component": 35,
+    "nearest_digit_pair": [
+      1,
+      2
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.010494732297956944
+  },
+  {
+    "component": 36,
+    "nearest_digit_pair": [
+      3,
+      0
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.004781915806233883
+  },
+  {
+    "component": 37,
+    "nearest_digit_pair": [
+      3,
+      0
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.004781915806233883
+  },
+  {
+    "component": 38,
+    "nearest_digit_pair": [
+      0,
+      3
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.0057833814062178135
+  },
+  {
+    "component": 39,
+    "nearest_digit_pair": [
+      2,
+      1
+    ],
+    "nearest_pair_implied_sum": 3,
+    "c_y_argmax_sum_class": 3,
+    "prior_weight_c_w": 0.0027760788798332214
+  },
+  {
+    "component": 40,
+    "nearest_digit_pair": [
+      0,
+      4
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.004699717741459608
+  },
+  {
+    "component": 41,
+    "nearest_digit_pair": [
+      0,
+      4
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.004699717741459608
+  },
+  {
+    "component": 42,
+    "nearest_digit_pair": [
+      0,
+      4
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.004699717741459608
+  },
+  {
+    "component": 43,
+    "nearest_digit_pair": [
+      1,
+      3
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.009587472304701805
+  },
+  {
+    "component": 44,
+    "nearest_digit_pair": [
+      2,
+      2
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.0029265598859637976
+  },
+  {
+    "component": 45,
+    "nearest_digit_pair": [
+      4,
+      0
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.0033830255270004272
+  },
+  {
+    "component": 46,
+    "nearest_digit_pair": [
+      4,
+      0
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.0033830255270004272
+  },
+  {
+    "component": 47,
+    "nearest_digit_pair": [
+      3,
+      1
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.013483520597219467
+  },
+  {
+    "component": 48,
+    "nearest_digit_pair": [
+      1,
+      3
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.009587472304701805
+  },
+  {
+    "component": 49,
+    "nearest_digit_pair": [
+      2,
+      2
+    ],
+    "nearest_pair_implied_sum": 4,
+    "c_y_argmax_sum_class": 4,
+    "prior_weight_c_w": 0.0029265598859637976
+  },
+  {
+    "component": 50,
+    "nearest_digit_pair": [
+      4,
+      1
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.0009111800463870168
+  },
+  {
+    "component": 51,
+    "nearest_digit_pair": [
+      2,
+      3
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.005974004045128822
+  },
+  {
+    "component": 52,
+    "nearest_digit_pair": [
+      1,
+      4
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.005635370500385761
+  },
+  {
+    "component": 53,
+    "nearest_digit_pair": [
+      1,
+      4
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.005635370500385761
+  },
+  {
+    "component": 54,
+    "nearest_digit_pair": [
+      2,
+      3
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.005974004045128822
+  },
+  {
+    "component": 55,
+    "nearest_digit_pair": [
+      4,
+      1
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.0009111800463870168
+  },
+  {
+    "component": 56,
+    "nearest_digit_pair": [
+      3,
+      2
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.004247250966727734
+  },
+  {
+    "component": 57,
+    "nearest_digit_pair": [
+      4,
+      1
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.0009111800463870168
+  },
+  {
+    "component": 58,
+    "nearest_digit_pair": [
+      0,
+      5
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.018012257292866707
+  },
+  {
+    "component": 59,
+    "nearest_digit_pair": [
+      2,
+      3
+    ],
+    "nearest_pair_implied_sum": 5,
+    "c_y_argmax_sum_class": 5,
+    "prior_weight_c_w": 0.005974004045128822
+  },
+  {
+    "component": 60,
+    "nearest_digit_pair": [
+      1,
+      5
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.002090123714879155
+  },
+  {
+    "component": 61,
+    "nearest_digit_pair": [
+      0,
+      6
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.005450069904327393
+  },
+  {
+    "component": 62,
+    "nearest_digit_pair": [
+      6,
+      0
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.021625712513923645
+  },
+  {
+    "component": 63,
+    "nearest_digit_pair": [
+      1,
+      5
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.002090123714879155
+  },
+  {
+    "component": 64,
+    "nearest_digit_pair": [
+      5,
+      1
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.006883120164275169
+  },
+  {
+    "component": 65,
+    "nearest_digit_pair": [
+      1,
+      5
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.002090123714879155
+  },
+  {
+    "component": 66,
+    "nearest_digit_pair": [
+      1,
+      5
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.002090123714879155
+  },
+  {
+    "component": 67,
+    "nearest_digit_pair": [
+      0,
+      6
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.005450069904327393
+  },
+  {
+    "component": 68,
+    "nearest_digit_pair": [
+      2,
+      4
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.006304305046796799
+  },
+  {
+    "component": 69,
+    "nearest_digit_pair": [
+      0,
+      6
+    ],
+    "nearest_pair_implied_sum": 6,
+    "c_y_argmax_sum_class": 6,
+    "prior_weight_c_w": 0.005450069904327393
+  },
+  {
+    "component": 70,
+    "nearest_digit_pair": [
+      6,
+      1
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.00043936053407378495
+  },
+  {
+    "component": 71,
+    "nearest_digit_pair": [
+      2,
+      5
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.002689199522137642
+  },
+  {
+    "component": 72,
+    "nearest_digit_pair": [
+      6,
+      1
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.00043936053407378495
+  },
+  {
+    "component": 73,
+    "nearest_digit_pair": [
+      2,
+      5
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.002689199522137642
+  },
+  {
+    "component": 74,
+    "nearest_digit_pair": [
+      6,
+      1
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.00043936053407378495
+  },
+  {
+    "component": 75,
+    "nearest_digit_pair": [
+      4,
+      3
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.016180744394659996
+  },
+  {
+    "component": 76,
+    "nearest_digit_pair": [
+      5,
+      2
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.004972180351614952
+  },
+  {
+    "component": 77,
+    "nearest_digit_pair": [
+      1,
+      6
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.009837232530117035
+  },
+  {
+    "component": 78,
+    "nearest_digit_pair": [
+      6,
+      1
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.00043936053407378495
+  },
+  {
+    "component": 79,
+    "nearest_digit_pair": [
+      3,
+      4
+    ],
+    "nearest_pair_implied_sum": 7,
+    "c_y_argmax_sum_class": 7,
+    "prior_weight_c_w": 0.007169857621192932
+  },
+  {
+    "component": 80,
+    "nearest_digit_pair": [
+      5,
+      3
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.005947758909314871
+  },
+  {
+    "component": 81,
+    "nearest_digit_pair": [
+      6,
+      2
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.015601357445120811
+  },
+  {
+    "component": 82,
+    "nearest_digit_pair": [
+      2,
+      6
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.010753803886473179
+  },
+  {
+    "component": 83,
+    "nearest_digit_pair": [
+      4,
+      4
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.005745054688304663
+  },
+  {
+    "component": 84,
+    "nearest_digit_pair": [
+      0,
+      8
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.007713247090578079
+  },
+  {
+    "component": 85,
+    "nearest_digit_pair": [
+      7,
+      1
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.008725786581635475
+  },
+  {
+    "component": 86,
+    "nearest_digit_pair": [
+      7,
+      1
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.008725786581635475
+  },
+  {
+    "component": 87,
+    "nearest_digit_pair": [
+      3,
+      5
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.0005362531519494951
+  },
+  {
+    "component": 88,
+    "nearest_digit_pair": [
+      0,
+      8
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.007713247090578079
+  },
+  {
+    "component": 89,
+    "nearest_digit_pair": [
+      6,
+      2
+    ],
+    "nearest_pair_implied_sum": 8,
+    "c_y_argmax_sum_class": 8,
+    "prior_weight_c_w": 0.015601357445120811
+  },
+  {
+    "component": 90,
+    "nearest_digit_pair": [
+      7,
+      2
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.002823944203555584
+  },
+  {
+    "component": 91,
+    "nearest_digit_pair": [
+      4,
+      5
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.01071223895996809
+  },
+  {
+    "component": 92,
+    "nearest_digit_pair": [
+      4,
+      5
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.01071223895996809
+  },
+  {
+    "component": 93,
+    "nearest_digit_pair": [
+      9,
+      0
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.008626660332083702
+  },
+  {
+    "component": 94,
+    "nearest_digit_pair": [
+      6,
+      3
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.0003995476581621915
+  },
+  {
+    "component": 95,
+    "nearest_digit_pair": [
+      6,
+      3
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.0003995476581621915
+  },
+  {
+    "component": 96,
+    "nearest_digit_pair": [
+      2,
+      7
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.005116470158100128
+  },
+  {
+    "component": 97,
+    "nearest_digit_pair": [
+      6,
+      3
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.0003995476581621915
+  },
+  {
+    "component": 98,
+    "nearest_digit_pair": [
+      9,
+      0
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.008626660332083702
+  },
+  {
+    "component": 99,
+    "nearest_digit_pair": [
+      2,
+      7
+    ],
+    "nearest_pair_implied_sum": 9,
+    "c_y_argmax_sum_class": 9,
+    "prior_weight_c_w": 0.005116470158100128
+  },
+  {
+    "component": 100,
+    "nearest_digit_pair": [
+      5,
+      5
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.003156094579026103
+  },
+  {
+    "component": 101,
+    "nearest_digit_pair": [
+      2,
+      8
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.003345294389873743
+  },
+  {
+    "component": 102,
+    "nearest_digit_pair": [
+      1,
+      9
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.006914992816746235
+  },
+  {
+    "component": 103,
+    "nearest_digit_pair": [
+      5,
+      5
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.01580764539539814
+  },
+  {
+    "component": 104,
+    "nearest_digit_pair": [
+      7,
+      3
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.0010173163609579206
+  },
+  {
+    "component": 105,
+    "nearest_digit_pair": [
+      9,
+      1
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.007241309620440006
+  },
+  {
+    "component": 106,
+    "nearest_digit_pair": [
+      2,
+      8
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.003345294389873743
+  },
+  {
+    "component": 107,
+    "nearest_digit_pair": [
+      8,
+      2
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.011844887398183346
+  },
+  {
+    "component": 108,
+    "nearest_digit_pair": [
+      7,
+      3
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.0010173163609579206
+  },
+  {
+    "component": 109,
+    "nearest_digit_pair": [
+      5,
+      5
+    ],
+    "nearest_pair_implied_sum": 10,
+    "c_y_argmax_sum_class": 10,
+    "prior_weight_c_w": 0.01580764539539814
+  },
+  {
+    "component": 110,
+    "nearest_digit_pair": [
+      5,
+      6
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.0037631557788699865
+  },
+  {
+    "component": 111,
+    "nearest_digit_pair": [
+      9,
+      2
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.00045899476390331984
+  },
+  {
+    "component": 112,
+    "nearest_digit_pair": [
+      3,
+      8
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.006919447332620621
+  },
+  {
+    "component": 113,
+    "nearest_digit_pair": [
+      4,
+      7
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.00928543321788311
+  },
+  {
+    "component": 114,
+    "nearest_digit_pair": [
+      8,
+      3
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.0062660714611411095
+  },
+  {
+    "component": 115,
+    "nearest_digit_pair": [
+      9,
+      2
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.00045899476390331984
+  },
+  {
+    "component": 116,
+    "nearest_digit_pair": [
+      3,
+      8
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.006919447332620621
+  },
+  {
+    "component": 117,
+    "nearest_digit_pair": [
+      4,
+      7
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.00928543321788311
+  },
+  {
+    "component": 118,
+    "nearest_digit_pair": [
+      8,
+      3
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.0062660714611411095
+  },
+  {
+    "component": 119,
+    "nearest_digit_pair": [
+      3,
+      8
+    ],
+    "nearest_pair_implied_sum": 11,
+    "c_y_argmax_sum_class": 11,
+    "prior_weight_c_w": 0.006919447332620621
+  },
+  {
+    "component": 120,
+    "nearest_digit_pair": [
+      9,
+      3
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.008932406082749367
+  },
+  {
+    "component": 121,
+    "nearest_digit_pair": [
+      6,
+      6
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.004061623476445675
+  },
+  {
+    "component": 122,
+    "nearest_digit_pair": [
+      3,
+      9
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.003882500808686018
+  },
+  {
+    "component": 123,
+    "nearest_digit_pair": [
+      8,
+      4
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.016977310180664062
+  },
+  {
+    "component": 124,
+    "nearest_digit_pair": [
+      3,
+      9
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.003882500808686018
+  },
+  {
+    "component": 125,
+    "nearest_digit_pair": [
+      7,
+      5
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.004394792951643467
+  },
+  {
+    "component": 126,
+    "nearest_digit_pair": [
+      3,
+      9
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.003882500808686018
+  },
+  {
+    "component": 127,
+    "nearest_digit_pair": [
+      3,
+      9
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.003882500808686018
+  },
+  {
+    "component": 128,
+    "nearest_digit_pair": [
+      6,
+      6
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.004061623476445675
+  },
+  {
+    "component": 129,
+    "nearest_digit_pair": [
+      8,
+      4
+    ],
+    "nearest_pair_implied_sum": 12,
+    "c_y_argmax_sum_class": 12,
+    "prior_weight_c_w": 0.016977310180664062
+  },
+  {
+    "component": 130,
+    "nearest_digit_pair": [
+      6,
+      7
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0012924354523420334
+  },
+  {
+    "component": 131,
+    "nearest_digit_pair": [
+      6,
+      7
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0012924354523420334
+  },
+  {
+    "component": 132,
+    "nearest_digit_pair": [
+      6,
+      7
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0012924354523420334
+  },
+  {
+    "component": 133,
+    "nearest_digit_pair": [
+      9,
+      4
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.008717536926269531
+  },
+  {
+    "component": 134,
+    "nearest_digit_pair": [
+      4,
+      9
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0035121634136885405
+  },
+  {
+    "component": 135,
+    "nearest_digit_pair": [
+      6,
+      7
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0012924354523420334
+  },
+  {
+    "component": 136,
+    "nearest_digit_pair": [
+      4,
+      9
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0035121634136885405
+  },
+  {
+    "component": 137,
+    "nearest_digit_pair": [
+      4,
+      9
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0035121634136885405
+  },
+  {
+    "component": 138,
+    "nearest_digit_pair": [
+      4,
+      9
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0035121634136885405
+  },
+  {
+    "component": 139,
+    "nearest_digit_pair": [
+      4,
+      9
+    ],
+    "nearest_pair_implied_sum": 13,
+    "c_y_argmax_sum_class": 13,
+    "prior_weight_c_w": 0.0035121634136885405
+  },
+  {
+    "component": 140,
+    "nearest_digit_pair": [
+      6,
+      8
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.003626657882705331
+  },
+  {
+    "component": 141,
+    "nearest_digit_pair": [
+      7,
+      7
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.002739363582804799
+  },
+  {
+    "component": 142,
+    "nearest_digit_pair": [
+      7,
+      7
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.002739363582804799
+  },
+  {
+    "component": 143,
+    "nearest_digit_pair": [
+      7,
+      7
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.002739363582804799
+  },
+  {
+    "component": 144,
+    "nearest_digit_pair": [
+      9,
+      5
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.005587502382695675
+  },
+  {
+    "component": 145,
+    "nearest_digit_pair": [
+      6,
+      8
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.003626657882705331
+  },
+  {
+    "component": 146,
+    "nearest_digit_pair": [
+      5,
+      9
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.00763035798445344
+  },
+  {
+    "component": 147,
+    "nearest_digit_pair": [
+      5,
+      9
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.00763035798445344
+  },
+  {
+    "component": 148,
+    "nearest_digit_pair": [
+      7,
+      7
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.002739363582804799
+  },
+  {
+    "component": 149,
+    "nearest_digit_pair": [
+      6,
+      8
+    ],
+    "nearest_pair_implied_sum": 14,
+    "c_y_argmax_sum_class": 14,
+    "prior_weight_c_w": 0.003626657882705331
+  },
+  {
+    "component": 150,
+    "nearest_digit_pair": [
+      8,
+      7
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.007955820299685001
+  },
+  {
+    "component": 151,
+    "nearest_digit_pair": [
+      7,
+      8
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.004508208483457565
+  },
+  {
+    "component": 152,
+    "nearest_digit_pair": [
+      9,
+      6
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.006418259814381599
+  },
+  {
+    "component": 153,
+    "nearest_digit_pair": [
+      6,
+      9
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.0002686761145014316
+  },
+  {
+    "component": 154,
+    "nearest_digit_pair": [
+      9,
+      6
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.006418259814381599
+  },
+  {
+    "component": 155,
+    "nearest_digit_pair": [
+      9,
+      6
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.006418259814381599
+  },
+  {
+    "component": 156,
+    "nearest_digit_pair": [
+      7,
+      8
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.004508208483457565
+  },
+  {
+    "component": 157,
+    "nearest_digit_pair": [
+      6,
+      9
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.0002686761145014316
+  },
+  {
+    "component": 158,
+    "nearest_digit_pair": [
+      7,
+      8
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.004508208483457565
+  },
+  {
+    "component": 159,
+    "nearest_digit_pair": [
+      8,
+      7
+    ],
+    "nearest_pair_implied_sum": 15,
+    "c_y_argmax_sum_class": 15,
+    "prior_weight_c_w": 0.007955820299685001
+  },
+  {
+    "component": 160,
+    "nearest_digit_pair": [
+      8,
+      8
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.005292023532092571
+  },
+  {
+    "component": 161,
+    "nearest_digit_pair": [
+      7,
+      9
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.004280462861061096
+  },
+  {
+    "component": 162,
+    "nearest_digit_pair": [
+      7,
+      9
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.004280462861061096
+  },
+  {
+    "component": 163,
+    "nearest_digit_pair": [
+      9,
+      7
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.009260818362236023
+  },
+  {
+    "component": 164,
+    "nearest_digit_pair": [
+      7,
+      9
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.004280462861061096
+  },
+  {
+    "component": 165,
+    "nearest_digit_pair": [
+      8,
+      8
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.005292023532092571
+  },
+  {
+    "component": 166,
+    "nearest_digit_pair": [
+      9,
+      7
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.009260818362236023
+  },
+  {
+    "component": 167,
+    "nearest_digit_pair": [
+      8,
+      8
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.005292023532092571
+  },
+  {
+    "component": 168,
+    "nearest_digit_pair": [
+      8,
+      8
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.005292023532092571
+  },
+  {
+    "component": 169,
+    "nearest_digit_pair": [
+      8,
+      8
+    ],
+    "nearest_pair_implied_sum": 16,
+    "c_y_argmax_sum_class": 16,
+    "prior_weight_c_w": 0.005292023532092571
+  },
+  {
+    "component": 170,
+    "nearest_digit_pair": [
+      9,
+      8
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.003631940810009837
+  },
+  {
+    "component": 171,
+    "nearest_digit_pair": [
+      8,
+      9
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.000513355596922338
+  },
+  {
+    "component": 172,
+    "nearest_digit_pair": [
+      8,
+      9
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.000513355596922338
+  },
+  {
+    "component": 173,
+    "nearest_digit_pair": [
+      8,
+      9
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.000513355596922338
+  },
+  {
+    "component": 174,
+    "nearest_digit_pair": [
+      8,
+      9
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.000513355596922338
+  },
+  {
+    "component": 175,
+    "nearest_digit_pair": [
+      9,
+      8
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.003631940810009837
+  },
+  {
+    "component": 176,
+    "nearest_digit_pair": [
+      9,
+      8
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.003631940810009837
+  },
+  {
+    "component": 177,
+    "nearest_digit_pair": [
+      9,
+      8
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.003631940810009837
+  },
+  {
+    "component": 178,
+    "nearest_digit_pair": [
+      8,
+      9
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.000513355596922338
+  },
+  {
+    "component": 179,
+    "nearest_digit_pair": [
+      9,
+      8
+    ],
+    "nearest_pair_implied_sum": 17,
+    "c_y_argmax_sum_class": 17,
+    "prior_weight_c_w": 0.003631940810009837
+  },
+  {
+    "component": 180,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 181,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 182,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 183,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 184,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 185,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 186,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 187,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 188,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  },
+  {
+    "component": 189,
+    "nearest_digit_pair": [
+      9,
+      9
+    ],
+    "nearest_pair_implied_sum": 18,
+    "c_y_argmax_sum_class": 18,
+    "prior_weight_c_w": 0.006791593972593546
+  }
+]

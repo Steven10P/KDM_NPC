@@ -1,0 +1,7 @@
+{
+  "condition": "kdm_final-seed42",
+  "checkpoint": "C:\\Users\\bspd2\\Maestria\\Tesis_KDM_NPC\\experiments\\exp_03_mnist_kdm_sweep\\results\\final-seed42\\checkpoints\\model.pt",
+  "n_test": 3500,
+  "classification_accuracy": 0.9917142857142857,
+  "attribute_joint_accuracy": 0.9922857142857143
+}

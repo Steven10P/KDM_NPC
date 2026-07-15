@@ -1,0 +1,9 @@
+{
+  "variant": "data",
+  "file_path_pc": "C:\\Users\\bspd2\\Maestria\\Tesis_KDM_NPC\\external\\learnspn\\outputs\\learnspn\\mnist.spn.txt",
+  "n_nodes_total": 15410,
+  "n_sum_nodes": 11512,
+  "n_product_nodes": 3859,
+  "n_leaf_nodes": 39,
+  "depth": 5
+}

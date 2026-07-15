@@ -33,6 +33,10 @@ experiments/*/results/_kaggle_output_*/
 # Checkpoints pesados (van a Drive, no a git) — solo metrics.json/git_commit.txt se versionan
 experiments/*/results/*/checkpoints/
 
+# Datos locales derivados/regenerables (splits materializados, checkpoints
+# copiados para inferencia local) — regenerar con los scripts, no versionar
+experiments/*/data_local/
+
 # Sistema
 Thumbs.db
 .DS_Store

@@ -1,0 +1,11 @@
+{
+  "examples_plotted": [
+    2232,
+    1794,
+    2976,
+    381,
+    74
+  ],
+  "attribution_entropy_mean_correct": 0.9858626127243042,
+  "attribution_entropy_mean_incorrect": 1.2628298997879028
+}
