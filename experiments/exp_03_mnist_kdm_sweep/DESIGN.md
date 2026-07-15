@@ -71,8 +71,16 @@ en este rango.
 
 **Condición de confirmación (10ª)**: `search-confirm` — combina los 4
 valores ganadores (`n_comp_head=200, n_comp_final=380, lr_kdm=3e-3,
-sigma_mult=0.5`), lanzada para validar que no hay interacción negativa
-entre ejes antes de escalar a Fase B.
+sigma_mult=0.5`). Resultado: acc suma 99.11%, acc atributos 99.14%, **TV
+0.0068 (la mejor de las 10 corridas)** — pero la accuracy de suma NO supera
+a `search-lr3e3` sola (99.31%). Los efectos por eje **no son aditivos**:
+combinar los 4 cambios mejora la calibración (TV) pero no la accuracy
+end-to-end respecto de mover solo `lr_kdm`.
+
+**Decisión (regla del §7)**: ganador de Fase A = mejor accuracy end-to-end
+entre las 10 corridas cortas → **`search-lr3e3`** (`n_comp_head=100,
+n_comp_final=190, lr_kdm=3e-3, sigma_mult=1.0`, idéntico a `exp_02` salvo
+`lr_kdm` 1e-3→3e-3). Esta es la configuración que pasa a Fase B.
 
 ## 3. Fase B — Confirmación a escala completa
 
