@@ -4,8 +4,8 @@
 Cartesian, unica -- exp_02 ya descarto Distributional) en GTSRB.
 
 NO se corre directo -- _generate_kernel.py sustituye los placeholders
-__CONDITION__/__SEED__/__EPOCHS__/__N_COMP_PER_VALUE__/__N_COMP_FINAL__/
-__LR_KDM__/__SIGMA_MULT__ y escribe una copia por condicion en scripts/<condicion>/.
+search-sig05_seed42/42/15/10/430/
+0.003/0.5 y escribe una copia por condicion en scripts/<condicion>/.
 
 Generalizacion de exp_03_mnist_kdm_sweep/scripts/_template_kernel.py de 2
 cabezas homogeneas (10 valores cada una) a 4 cabezas heterogeneas
@@ -38,14 +38,14 @@ import time
 
 WORK = "/kaggle/working"
 NPC_ROOT = f"{WORK}/npc"
-CONDITION = "__CONDITION__"
-SEED = __SEED__
-EPOCHS = __EPOCHS__
+CONDITION = "search-sig05_seed42"
+SEED = 42
+EPOCHS = 15
 BATCH_SIZE = 256
-N_COMP_PER_VALUE = __N_COMP_PER_VALUE__
-N_COMP_FINAL = __N_COMP_FINAL__
-LR_KDM = __LR_KDM__
-SIGMA_MULT = __SIGMA_MULT__
+N_COMP_PER_VALUE = 10
+N_COMP_FINAL = 430
+LR_KDM = 0.003
+SIGMA_MULT = 0.5
 RESULTS = f"{WORK}/results/{CONDITION}"
 EXPECTED_GLOBAL_SHA256 = "1f398e558be886d4a787c97e85455d5310e912265212f2bcde8856e5a98fbdd0"
 VAL_EVERY_N_EPOCHS = 5  # nuevo respecto a exp_03: registrar validacion desde la Fase A

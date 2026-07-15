@@ -286,8 +286,25 @@ solo en Fase B)**:
    clases (2026-07-15) — coincide perfectamente con la numeración oficial
    de GTSRB (ej. ClassId 14 → "regulatory--stop", octágono rojo con texto
    "stop"; ClassId 25 → "warning--roadworks", triángulo rojo).
-2. ⏳ Empaquetar y subir el dataset de Kaggle (§1.2) — **bloqueado por
-   conectividad a internet**, pendiente de reintentar.
+2. ✅ Empaquetar y subir el dataset de Kaggle (§1.2) — **`bspenad10/gtsrb-npc`**
+   (2026-07-15). **Corrección importante descubierta durante este paso**: la
+   copia de GTSRB descargada previamente en `data/gtsrb/` (703MB, `.ppm`,
+   carpetas `00000`-`00042` con padding) **no era la misma distribución**
+   que usaron los autores de `npc-dataset-utils` para construir
+   `gtsrb_split.json.gz` — sus nombres de archivo (`00015_00016_00026`, sin
+   extensión) solo calzan con el mirror oficial de Kaggle
+   `meowmeowmeowmeowmeow/gtsrb-german-traffic-sign` (`.png`, carpetas `0`-`42`
+   sin padding, nombres `<classId>_<track>_<frame>.png`), confirmado leyendo
+   `external/npc-dataset-utils/src/npc-dataset-utils/gtsrb.py` (que además
+   trae el mapeo carpeta→nombre-semántico ya hardcodeado, y coincide
+   exactamente con el que se derivó independientemente en el paso 1 desde
+   `gtsrb.json`). Se descargó el mirror correcto (612MB, 39,209 imágenes),
+   se empaquetó (`scripts/_package_kaggle_dataset.py`) y se subió — el
+   dataset final tiene 39,209 imágenes en 43 clases con el desbalance real
+   documentado en `DESIGN.md §3` (ej. 210 imágenes en la clase 0 vs. 2,250
+   en la clase 2). `EXPECTED_GLOBAL_SHA256` y los conteos de split
+   (31,367/3,921/3,921 train/validate/test) ya están llenos en
+   `_template_kernel.py`.
 3. ✅ `src/models/kdm_cascade_gtsrb.py` (§2) — verificado con un forward pass
    de prueba local (`scripts/_test_kdm_cascade_gtsrb.py`, batch sintético de
    430 imágenes = 10/clase × 43 clases, CPU): `init_components` y `forward`

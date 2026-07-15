@@ -15,7 +15,7 @@ verificada directamente sobre el repo (no supuestos):
 
 | | **GTSRB** | CelebA | AwA2 |
 |---|---|---|---|
-| Imágenes reales ya descargadas | ✅ 703MB, 43 carpetas de clase con ruido real de iluminación/ángulo (`data/gtsrb/gtsrb/GTSRB/{Training,Final_Test}`) | ❌ solo el `.txt` de atributos (26MB); faltan las imágenes (~1.3GB+) | ❌ carpeta casi vacía (116KB) |
+| Imágenes reales disponibles | ✅ (con una corrección: la copia inicial en `data/gtsrb/` resultó ser una distribución incompatible — nombres de archivo distintos a los que espera `gtsrb_split.json.gz`; se descargó el mirror oficial correcto, `meowmeowmeowmeowmeow/gtsrb-german-traffic-sign`, 39,209 imágenes, ver `IMPLEMENTATION.md §6` paso 2) | ❌ solo el `.txt` de atributos (26MB); faltan las imágenes (~1.3GB+) | ❌ carpeta casi vacía (116KB) |
 | Split congelado | ✅ `gtsrb_split.json.gz` ya existe en `npc-dataset-utils/configs` | existe el `.json.gz`, pero sin imágenes es irrelevante | idem |
 | Clases | 43, con desbalance de clase real (151 a 1501 imágenes/clase observado) | ~200K instancias (`instance_wise`) | 50 clases de animal |
 | Atributos | 4, **single-hot**: color(3), shape(4), symbol(26), text(10) | 5, **multi_hot** (varios valores simultáneos) | 4 mostrados, **multi_hot** |

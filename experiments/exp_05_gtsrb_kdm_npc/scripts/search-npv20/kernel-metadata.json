@@ -1,0 +1,15 @@
+{
+  "id": "bspenad10/exp05-kdm-gtsrb-search-npv20-seed42",
+  "title": "exp05 KDM GTSRB search-npv20 seed42",
+  "code_file": "kernel_search_npv20.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "bspenad10/gtsrb-npc"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
