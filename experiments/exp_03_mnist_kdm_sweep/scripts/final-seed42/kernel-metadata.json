@@ -1,0 +1,15 @@
+{
+  "id": "bspenad10/exp03-kdm-mnist-final-seed42-seed42",
+  "title": "exp03 KDM MNIST final-seed42 seed42",
+  "code_file": "kernel_final_seed42.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "bspenad10/mnist-addition-npc"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
