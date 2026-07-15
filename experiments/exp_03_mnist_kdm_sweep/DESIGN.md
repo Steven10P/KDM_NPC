@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-14
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: Fase A y B completas — pendiente Fase C (informe + gráficas) y aprobación del usuario
+**Status**: Complete
 
 ---
 
