@@ -100,15 +100,24 @@ class KDMCascadeGTSRB(nn.Module):
         neck = torch.cat(neck_chunks, dim=0)
 
         def stratified_idx(labels: torch.Tensor, n_values: int, n_total: int) -> torch.Tensor:
+            # GTSRB tiene desbalance real -- a diferencia de MNIST-Addition,
+            # un valor de atributo/clase puede tener menos candidatos que
+            # per_value incluso en una muestra grande de init. Se muestrea
+            # sin reemplazo hasta agotar los candidatos y se completa CON
+            # reemplazo -- son solo puntos de partida del entrenamiento, no
+            # una garantia estadistica.
             per_value = n_total // n_values
             assert per_value * n_values == n_total, \
                 f"n_comp={n_total} debe ser divisible por n_values={n_values}"
             chosen = []
             for value in range(n_values):
                 candidates = (labels == value).nonzero(as_tuple=True)[0]
-                assert len(candidates) >= per_value, \
-                    f"valor {value}: se necesitan {per_value} muestras, hay {len(candidates)}"
-                chosen.append(candidates[torch.randperm(len(candidates))[:per_value]])
+                assert len(candidates) >= 1, f"valor {value}: no hay ningun candidato"
+                if len(candidates) >= per_value:
+                    chosen.append(candidates[torch.randperm(len(candidates))[:per_value]])
+                else:
+                    extra = candidates[torch.randint(len(candidates), (per_value - len(candidates),))]
+                    chosen.append(torch.cat([candidates, extra]))
             return torch.cat(chosen)
 
         # idx_f se calcula UNA sola vez (no por atributo) -- las 4 tuplas

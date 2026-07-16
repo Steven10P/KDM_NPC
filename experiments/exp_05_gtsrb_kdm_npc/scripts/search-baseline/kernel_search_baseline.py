@@ -215,13 +215,24 @@ class KDMCascadeGTSRB(nn.Module):
         neck = torch.cat(neck_chunks, dim=0)
 
         def stratified_idx(labels, n_values, n_total):
+            # GTSRB tiene desbalance real -- a diferencia de MNIST-Addition,
+            # algun valor de atributo/clase puede tener MENOS candidatos que
+            # per_value incluso en una muestra grande. En vez de exigir un
+            # batch de init gigante (fallo real: DataLoader worker OOM con
+            # 12000 imagenes), se muestrea sin reemplazo hasta agotar los
+            # candidatos disponibles y se completa CON reemplazo -- initz
+            # sigue siendo valida (son solo puntos de partida para el
+            # entrenamiento), solo que un valor raro puede repetir imagen.
             per_value = n_total // n_values
             chosen = []
             for value in range(n_values):
                 candidates = (labels == value).nonzero(as_tuple=True)[0]
-                assert len(candidates) >= per_value, \
-                    f"valor {value}: hay {len(candidates)}, se necesitan {per_value}"
-                chosen.append(candidates[torch.randperm(len(candidates))[:per_value]])
+                assert len(candidates) >= 1, f"valor {value}: no hay NINGUN candidato"
+                if len(candidates) >= per_value:
+                    chosen.append(candidates[torch.randperm(len(candidates))[:per_value]])
+                else:
+                    extra = candidates[torch.randint(len(candidates), (per_value - len(candidates),))]
+                    chosen.append(torch.cat([candidates, extra]))
             return torch.cat(chosen)
 
         idx_f = stratified_idx(class_labels, N_CLASSES, self.n_comp_final)
@@ -264,14 +275,16 @@ model = KDMCascadeGTSRB(n_comp_per_value=N_COMP_PER_VALUE, n_comp_final=N_COMP_F
 # 6. Inicializacion (batch estratificado grande)
 # --------------------------------------------------------------------------
 # GTSRB tiene desbalance de clase REAL (a diferencia de MNIST-Addition,
-# balanceado por construccion) -- un muestreo de 3000 (como en exp_03/MNIST)
-# no siempre trae suficientes ejemplos de los valores de atributo mas raros
-# para estratificar (visto en la practica: "valor 7: hay 11, se necesitan
-# 15"). 12000 (~38% del train set) da margen holgado sin cargar el train
-# set completo en memoria (~7GB de tensores de imagen vs. ~19GB si fuera
-# completo).
+# balanceado por construccion). Un batch de init grande (se probo 12000)
+# hace que el DataLoader worker muera por falta de memoria al recolectar
+# el batch (RuntimeError: DataLoader worker exited unexpectedly). En vez de
+# perseguir un tamano de muestra "suficiente" para cubrir hasta el valor
+# mas raro, se usa un tamano moderado (6000, num_workers=0 para evitar la
+# duplicacion de memoria entre proceso worker y proceso principal al
+# recolectar un batch grande) y stratified_idx (mas abajo) ya tolera
+# escasez muestreando con reemplazo cuando hace falta.
 t_init = time.time()
-init_loader = torch.utils.data.DataLoader(ds_train, batch_size=12000, shuffle=True, num_workers=2)
+init_loader = torch.utils.data.DataLoader(ds_train, batch_size=6000, shuffle=True, num_workers=0)
 init_images, init_attrs, init_class, _ = next(iter(init_loader))
 init_attribute_labels = {name: init_attrs[i].argmax(dim=1).to(device)
                          for i, name in enumerate(ATTR_NAMES)}
