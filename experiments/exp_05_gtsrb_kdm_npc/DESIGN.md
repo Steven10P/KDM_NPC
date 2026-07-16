@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-15
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: 🔄 Fase B en curso (2026-07-16) — ganador confirmado: `search-lr3e4-sig05` (`lr_kdm=3e-4`, `sigma_mult=0.5`) — aprobada por el usuario, lanzando 5 semillas × 60 épocas (2/5 corriendo: seed42, seed52)
+**Status**: 🔄 Fase B en curso (2026-07-16) — 2/5 semillas completas (seed42: 99.949% acc./TV 0.00037; seed52: 99.974% acc./TV 0.00030) — bloqueada por cuota semanal de GPU de Kaggle agotada, 3 semillas restantes listas para lanzar
 
 ## Fase A — resultado completo (9/9 corridas)
 
@@ -123,23 +123,39 @@ ruido adicional en la cabeza de atributos. **No hace falta ninguna otra
 corrida de confirmación** — `search-lr3e4-sig05` queda cerrado como
 configuración final para Fase B.
 
-## Próximos pasos: Fase B (pendiente de aprobación)
+## Fase B — en curso (2/5 semillas completas)
 
-Con Fase A, Fase A2 y la corrida de confirmación cerradas, **el usuario
-aprobó explícitamente lanzar Fase B** (2026-07-16): confirmación a escala
-completa con la configuración ganadora — **`search-lr3e4-sig05`**
+**El usuario aprobó explícitamente lanzar Fase B** (2026-07-16):
+confirmación a escala completa con la configuración ganadora —
+**`search-lr3e4-sig05`**
 (`n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4, sigma_mult=0.5`),
-60 épocas × 5 semillas (42, 52, 62, 72, 82), igual que `exp_03`.
+60 épocas × 5 semillas (42, 52, 62, 72, 82), igual que `exp_03`. Kernels
+generados vía `_generate_kernel.py --final` (carpetas
+`final-seed{42,52,62,72,82}`, commit `a300478`).
 
-**Estado del lanzamiento**: kernels generados vía `_generate_kernel.py
---final` (carpetas `final-seed{42,52,62,72,82}`, commit `a300478`). Dado el
-límite de Kaggle de 2 sesiones GPU concurrentes, se lanzaron primero
-`final-seed42` y `final-seed52`; `final-seed62/72/82` quedan en cola para
-lanzarse cuando se liberen slots. A ~75-76s/época observado en Fase A/A2,
-60 épocas se estiman en ~75-80 min por semilla (vs. ~20-25 min de las
-corridas cortas de 15 épocas) — Fase B completa (5 semillas, con el límite
-de 2 concurrentes) toma varias horas de reloj.
-  combinación, solo cada eje por separado contra la referencia.
+| Semilla | Accuracy | Acc. atributos | TV | Estado |
+|---|---|---|---|---|
+| 42 | 99.949% | 99.974% | **0.000372** | ✅ completa |
+| 52 | 99.974% | 99.974% | **0.000300** | ✅ completa |
+| 62 | — | — | — | ⏸ bloqueada (cuota GPU) |
+| 72 | — | — | — | ⏸ bloqueada (cuota GPU) |
+| 82 | — | — | — | ⏸ en cola |
+
+**Hallazgo intermedio**: extender de 15 a 60 épocas mejora la TV distance
+otro ~7-10× más allá de lo ya visto en Fase A2/confirmación (0.0025-0.0104
+a 15 épocas → 0.0003-0.0004 a 60 épocas), sin que la accuracy se sature —
+de hecho sigue subiendo levemente (99.95%→99.95-99.97%). Esto responde una
+de las preguntas abiertas dejadas en la sección anterior: **60 épocas sí
+siguen aportando** con esta configuración, no hay sobre-entrenamiento
+visible en las 2 semillas completadas.
+
+**Bloqueo actual: cuota semanal de GPU de Kaggle agotada** (30h/semana,
+mensaje `"Maximum weekly GPU quota of 30.00 hours reached"` al intentar
+`kaggle kernels push` para `final-seed62`/`final-seed72`). No se puede
+lanzar ninguna corrida nueva hasta que la cuota se reinicie (semanal, por
+franja horaria de Kaggle — no confirmado el día/hora exactos). Las 3
+semillas restantes (62, 72, 82) quedan generadas y listas para lanzar en
+cuanto haya cupo.
 
 ---
 
