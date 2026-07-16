@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-15
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: ✅ Fase A + Fase A2 completas (2026-07-16) — ganador: `search-lr3e4-sig05` (`lr_kdm=3e-4`, `sigma_mult=0.5`) — Fase B pendiente de aprobación
+**Status**: ✅ Fase A + Fase A2 + confirmación completas (2026-07-16) — ganador final: `search-lr3e4-sig05` (`lr_kdm=3e-4`, `sigma_mult=0.5`, ejes no aditivos confirmados) — Fase B pendiente de aprobación
 
 ## Fase A — resultado completo (9/9 corridas)
 
@@ -101,16 +101,39 @@ sobre si valía la pena una corrida adicional de `n_comp_final` bajo
 combinado con la tasa correcta queda respondida por `search-lr3e4-ncf172`:
 no hay ganancia, incluso pierde en ambos ejes frente a la referencia.
 
+### Corrida de confirmación (10a): `sigma_mult=0.5` + `n_comp_final=645`
+
+Antes de cerrar Fase B se lanzó una quinta corrida corta combinando los dos
+ejes con señal positiva de Fase A2, para descartar una interacción no
+aditiva favorable entre ellos (mismo protocolo de confirmación que
+`exp_03`).
+
+| Condición | n_comp_final | sigma_mult | Acc. suma | Acc. atributos | TV | Estado |
+|---|---|---|---|---|---|---|
+| **search-lr3e4-sig05** (mejor individual) | 430 | 0.5 | **99.95%** | 99.95% | **0.0025** | referencia a batir |
+| search-confirm (combinación) | 645 | 0.5 | 99.92% | 98.62% | 0.0104 | peor en los 3 ejes |
+
+**Resultado: la combinación no mejora nada — de hecho empeora** frente a
+`sig05` solo (accuracy levemente peor, TV ~4× peor, accuracy de atributos
+notablemente peor: 98.62% vs. 99.95%). Confirma, igual que en `exp_03`, que
+los ejes de este barrido **no son aditivos**: el eje decisivo
+(`sigma_mult=0.5`) ya captura toda la ganancia disponible, y forzar además
+un `n_comp_final` mayor solo añade parámetros sin beneficio, con algo de
+ruido adicional en la cabeza de atributos. **No hace falta ninguna otra
+corrida de confirmación** — `search-lr3e4-sig05` queda cerrado como
+configuración final para Fase B.
+
 ## Próximos pasos: Fase B (pendiente de aprobación)
 
-Con Fase A y Fase A2 cerradas, el siguiente paso del protocolo
-(`DESIGN.md §5`, `IMPLEMENTATION.md §4`) es **Fase B**: confirmación a
-escala completa con la configuración ganadora — **`search-lr3e4-sig05`**
+Con Fase A, Fase A2 y la corrida de confirmación cerradas, el siguiente
+paso del protocolo (`DESIGN.md §5`, `IMPLEMENTATION.md §4`) es **Fase B**:
+confirmación a escala completa con la configuración ganadora —
+**`search-lr3e4-sig05`**
 (`n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4, sigma_mult=0.5`),
 60 épocas × 5 semillas (42, 52, 62, 72, 82), igual que `exp_03`. **No se ha
 lanzado todavía** — queda pendiente de aprobación explícita antes de
-comprometer ~5× el cómputo de GPU ya usado en Fase A + A2 (13 corridas
-cortas ≈ 4.3h; Fase B completa ≈ 5h más).
+comprometer ~5× el cómputo de GPU ya usado en Fase A + A2 + confirmación
+(14 corridas cortas ≈ 4.5h; Fase B completa ≈ 5h más).
 
 Antes de lanzar, vale la pena decidir explícitamente:
 - Si 60 épocas siguen siendo razonables dado que `search-lr3e4-sig05` ya
@@ -118,9 +141,6 @@ Antes de lanzar, vale la pena decidir explícitamente:
   épocas, aunque también posible que la accuracy/TV sigan mejorando un
   poco más — a diferencia de la referencia original, acá no hay señal de
   saturación clara todavía).
-- Si vale la pena una quinta corrida corta de confirmación combinando
-  `sigma_mult=0.5` con `n_comp_final=645` (el otro eje con señal positiva,
-  aunque débil) antes de comprometer Fase B — Fase A2 no probó esta
   combinación, solo cada eje por separado contra la referencia.
 
 ---
