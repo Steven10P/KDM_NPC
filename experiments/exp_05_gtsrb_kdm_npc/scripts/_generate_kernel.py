@@ -35,6 +35,19 @@ FASE_A_CONDITIONS = [
 FASE_A_EPOCHS = 15
 FASE_A_SEED = 42
 
+# Fase A2: segunda vuelta del barrido uno-a-la-vez, ahora con lr_kdm=3e-4
+# FIJO (el ganador de Fase A) -- las corridas originales de estos mismos 4
+# valores se hicieron con lr_kdm=3e-3 (roto), asi que no aislaban el efecto
+# real del eje. sigma_mult=2.0 se omite: ya hay evidencia fuerte (exp_03 en
+# MNIST + search-sig20b acá) de que ensanchar el kernel perjudica
+# independientemente de la tasa de aprendizaje, no hace falta reconfirmar.
+FASE_A2_CONDITIONS = [
+    {"name": "search-lr3e4-ncf172", "n_comp_per_value": 10, "n_comp_final": 172, "lr_kdm": 3e-4, "sigma_mult": 1.0},
+    {"name": "search-lr3e4-ncf645", "n_comp_per_value": 10, "n_comp_final": 645, "lr_kdm": 3e-4, "sigma_mult": 1.0},
+    {"name": "search-lr3e4-sig05", "n_comp_per_value": 10, "n_comp_final": 430, "lr_kdm": 3e-4, "sigma_mult": 0.5},
+    {"name": "search-lr3e4-npv15", "n_comp_per_value": 15, "n_comp_final": 430, "lr_kdm": 3e-4, "sigma_mult": 1.0},
+]
+
 
 def generate(name, n_comp_per_value, n_comp_final, lr_kdm, sigma_mult, epochs, seed):
     condition = f"{name}_seed{seed}"
@@ -84,6 +97,8 @@ def generate(name, n_comp_per_value, n_comp_final, lr_kdm, sigma_mult, epochs, s
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--only", help="generar solo esta condicion de Fase A (por nombre)")
+    parser.add_argument("--phase2", action="store_true",
+                        help="generar las 4 condiciones de Fase A2 (lr_kdm=3e-4 fijo)")
     parser.add_argument("--confirm", nargs=4,
                         metavar=("N_COMP_PER_VALUE", "N_COMP_FINAL", "LR_KDM", "SIGMA_MULT"),
                         help="generar la 10a condicion (confirmacion combinada) con estos valores")
@@ -94,6 +109,10 @@ if __name__ == "__main__":
     if args.confirm:
         npv, ncf, lr, sig = args.confirm
         generate("search-confirm", int(npv), int(ncf), float(lr), float(sig), args.epochs, args.seed)
+    elif args.phase2:
+        for c in FASE_A2_CONDITIONS:
+            generate(c["name"], c["n_comp_per_value"], c["n_comp_final"], c["lr_kdm"], c["sigma_mult"],
+                     args.epochs, args.seed)
     else:
         conditions = FASE_A_CONDITIONS
         if args.only:
