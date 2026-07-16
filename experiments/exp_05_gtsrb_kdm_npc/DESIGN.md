@@ -4,7 +4,27 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-15
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: Planeado (DESIGN.md + IMPLEMENTATION.md, sin código todavía)
+**Status**: 🔄 Fase A en curso (2026-07-16) — dataset subido, pipeline validado, barrido de hiperparámetros corriendo
+
+## Resultado preliminar: `search-baseline` diverge
+
+La primera corrida de Fase A (`n_comp_per_value=10, n_comp_final=430,
+lr_kdm=3e-3, sigma_mult=1.0` — misma densidad de componentes que el
+ganador de `exp_03` en MNIST) **diverge**: la pérdida de train converge
+normalmente las primeras 3 épocas (3.45→1.89→1.47) y luego explota en la
+época 4 (5.25) y nunca se recupera (se mantiene en 5.2-6.4 el resto del
+entrenamiento). Resultado final: `classification_accuracy=8.3%`,
+`attribute_joint_accuracy=0.0%`, `mean_tv_distance=0.57`.
+
+**Esto confirma la hipótesis del diseño** (`DESIGN.md §2`, H1): los
+hiperparámetros ganadores de MNIST-Addition **no transfieren directamente**
+a GTSRB. `lr_kdm=3e-3` fue el ganador en MNIST precisamente porque MNIST
+tolera una tasa de aprendizaje agresiva sobre un espacio `dim_x=100`
+pequeño; GTSRB usa `dim_x=3120` (31× más grande) para el KDM final, lo que
+probablemente vuelve inestable la misma tasa de aprendizaje. Las corridas
+`search-lr1e3` (1e-3) y `search-lr3e4` (3e-4), ya en cola, son las más
+relevantes para confirmar esto — se documentará el resultado completo de
+Fase A en la sección de resultados una vez terminen las 9 corridas.
 
 ---
 
