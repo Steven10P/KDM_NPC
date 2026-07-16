@@ -263,8 +263,15 @@ model = KDMCascadeGTSRB(n_comp_per_value=N_COMP_PER_VALUE, n_comp_final=N_COMP_F
 # --------------------------------------------------------------------------
 # 6. Inicializacion (batch estratificado grande)
 # --------------------------------------------------------------------------
+# GTSRB tiene desbalance de clase REAL (a diferencia de MNIST-Addition,
+# balanceado por construccion) -- un muestreo de 3000 (como en exp_03/MNIST)
+# no siempre trae suficientes ejemplos de los valores de atributo mas raros
+# para estratificar (visto en la practica: "valor 7: hay 11, se necesitan
+# 15"). 12000 (~38% del train set) da margen holgado sin cargar el train
+# set completo en memoria (~7GB de tensores de imagen vs. ~19GB si fuera
+# completo).
 t_init = time.time()
-init_loader = torch.utils.data.DataLoader(ds_train, batch_size=3000, shuffle=True, num_workers=2)
+init_loader = torch.utils.data.DataLoader(ds_train, batch_size=12000, shuffle=True, num_workers=2)
 init_images, init_attrs, init_class, _ = next(iter(init_loader))
 init_attribute_labels = {name: init_attrs[i].argmax(dim=1).to(device)
                          for i, name in enumerate(ATTR_NAMES)}

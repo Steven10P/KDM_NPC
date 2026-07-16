@@ -95,6 +95,7 @@ _manifest_matches = glob.glob("/kaggle/input/**/MANIFEST.json", recursive=True)
 assert len(_manifest_matches) == 1, f"Se esperaba 1 MANIFEST.json: {_manifest_matches}"
 INPUT_DIR = os.path.dirname(_manifest_matches[0])
 print(f"[INFO] Dataset montado en: {INPUT_DIR}", flush=True)
+print(f"[DEBUG] contenido de INPUT_DIR: {sorted(os.listdir(INPUT_DIR))}", flush=True)
 
 t_data = time.time()
 processed = f"{NPC_ROOT}/datasets/gtsrb/instances/processed"
@@ -104,6 +105,14 @@ os.symlink(f"{INPUT_DIR}/gtsrb_processed", processed)
 with open(f"{INPUT_DIR}/MANIFEST.json") as f:
     manifest = json.load(f)
 assert manifest["global_sha256"] == EXPECTED_GLOBAL_SHA256
+
+_class_dirs = sorted(os.listdir(processed))
+print(f"[DEBUG] {len(_class_dirs)} carpetas de clase en processed, primeras 3: {_class_dirs[:3]}", flush=True)
+_n_processed = sum(len(fs) for _, _, fs in os.walk(processed))
+print(f"[DEBUG] {_n_processed} archivos totales en processed", flush=True)
+_sample_dir = os.path.join(processed, _class_dirs[0])
+print(f"[DEBUG] muestra de archivos en {_class_dirs[0]}: {sorted(os.listdir(_sample_dir))[:5]}", flush=True)
+assert _n_processed == manifest["n_images"], f"{_n_processed} != {manifest['n_images']}"
 
 import shutil, gzip  # noqa: E402
 cfg_dir = f"{NPC_ROOT}/npc-dataset-utils/configs/npc-dataset-utils"
@@ -254,8 +263,15 @@ model = KDMCascadeGTSRB(n_comp_per_value=N_COMP_PER_VALUE, n_comp_final=N_COMP_F
 # --------------------------------------------------------------------------
 # 6. Inicializacion (batch estratificado grande)
 # --------------------------------------------------------------------------
+# GTSRB tiene desbalance de clase REAL (a diferencia de MNIST-Addition,
+# balanceado por construccion) -- un muestreo de 3000 (como en exp_03/MNIST)
+# no siempre trae suficientes ejemplos de los valores de atributo mas raros
+# para estratificar (visto en la practica: "valor 7: hay 11, se necesitan
+# 15"). 12000 (~38% del train set) da margen holgado sin cargar el train
+# set completo en memoria (~7GB de tensores de imagen vs. ~19GB si fuera
+# completo).
 t_init = time.time()
-init_loader = torch.utils.data.DataLoader(ds_train, batch_size=3000, shuffle=True, num_workers=2)
+init_loader = torch.utils.data.DataLoader(ds_train, batch_size=12000, shuffle=True, num_workers=2)
 init_images, init_attrs, init_class, _ = next(iter(init_loader))
 init_attribute_labels = {name: init_attrs[i].argmax(dim=1).to(device)
                          for i, name in enumerate(ATTR_NAMES)}
