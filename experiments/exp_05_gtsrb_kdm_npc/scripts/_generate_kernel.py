@@ -48,6 +48,15 @@ FASE_A2_CONDITIONS = [
     {"name": "search-lr3e4-npv15", "n_comp_per_value": 15, "n_comp_final": 430, "lr_kdm": 3e-4, "sigma_mult": 1.0},
 ]
 
+# Fase B: confirmacion a escala completa con el ganador final de Fase A2
+# (search-lr3e4-sig05: n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4,
+# sigma_mult=0.5 -- misma accuracy que la referencia de Fase A, TV 19.4x
+# mejor; la corrida de confirmacion con ncf645 confirmo que combinar ejes no
+# ayuda). 60 epocas x 5 semillas, mismo protocolo que exp_03. Ver DESIGN.md.
+FASE_B_WINNER = {"n_comp_per_value": 10, "n_comp_final": 430, "lr_kdm": 3e-4, "sigma_mult": 0.5}
+FASE_B_SEEDS = [42, 52, 62, 72, 82]
+FASE_B_EPOCHS = 60
+
 
 def generate(name, n_comp_per_value, n_comp_final, lr_kdm, sigma_mult, epochs, seed):
     condition = f"{name}_seed{seed}"
@@ -102,6 +111,8 @@ if __name__ == "__main__":
     parser.add_argument("--confirm", nargs=4,
                         metavar=("N_COMP_PER_VALUE", "N_COMP_FINAL", "LR_KDM", "SIGMA_MULT"),
                         help="generar la 10a condicion (confirmacion combinada) con estos valores")
+    parser.add_argument("--final", action="store_true",
+                        help="generar las 5 corridas de Fase B (60 epocas, ganador search-lr3e4-sig05)")
     parser.add_argument("--epochs", type=int, default=FASE_A_EPOCHS)
     parser.add_argument("--seed", type=int, default=FASE_A_SEED)
     args = parser.parse_args()
@@ -113,6 +124,10 @@ if __name__ == "__main__":
         for c in FASE_A2_CONDITIONS:
             generate(c["name"], c["n_comp_per_value"], c["n_comp_final"], c["lr_kdm"], c["sigma_mult"],
                      args.epochs, args.seed)
+    elif args.final:
+        for seed in FASE_B_SEEDS:
+            generate(f"final-seed{seed}", FASE_B_WINNER["n_comp_per_value"], FASE_B_WINNER["n_comp_final"],
+                     FASE_B_WINNER["lr_kdm"], FASE_B_WINNER["sigma_mult"], FASE_B_EPOCHS, seed)
     else:
         conditions = FASE_A_CONDITIONS
         if args.only:

@@ -1,0 +1,15 @@
+{
+  "id": "bspenad10/exp05-kdm-gtsrb-final-seed52-seed52",
+  "title": "exp05 KDM GTSRB final-seed52 seed52",
+  "code_file": "kernel_final_seed52.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "bspenad10/gtsrb-npc"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
