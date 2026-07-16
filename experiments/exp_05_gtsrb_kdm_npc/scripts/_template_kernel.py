@@ -95,6 +95,7 @@ _manifest_matches = glob.glob("/kaggle/input/**/MANIFEST.json", recursive=True)
 assert len(_manifest_matches) == 1, f"Se esperaba 1 MANIFEST.json: {_manifest_matches}"
 INPUT_DIR = os.path.dirname(_manifest_matches[0])
 print(f"[INFO] Dataset montado en: {INPUT_DIR}", flush=True)
+print(f"[DEBUG] contenido de INPUT_DIR: {sorted(os.listdir(INPUT_DIR))}", flush=True)
 
 t_data = time.time()
 processed = f"{NPC_ROOT}/datasets/gtsrb/instances/processed"
@@ -104,6 +105,14 @@ os.symlink(f"{INPUT_DIR}/gtsrb_processed", processed)
 with open(f"{INPUT_DIR}/MANIFEST.json") as f:
     manifest = json.load(f)
 assert manifest["global_sha256"] == EXPECTED_GLOBAL_SHA256
+
+_class_dirs = sorted(os.listdir(processed))
+print(f"[DEBUG] {len(_class_dirs)} carpetas de clase en processed, primeras 3: {_class_dirs[:3]}", flush=True)
+_n_processed = sum(len(fs) for _, _, fs in os.walk(processed))
+print(f"[DEBUG] {_n_processed} archivos totales en processed", flush=True)
+_sample_dir = os.path.join(processed, _class_dirs[0])
+print(f"[DEBUG] muestra de archivos en {_class_dirs[0]}: {sorted(os.listdir(_sample_dir))[:5]}", flush=True)
+assert _n_processed == manifest["n_images"], f"{_n_processed} != {manifest['n_images']}"
 
 import shutil, gzip  # noqa: E402
 cfg_dir = f"{NPC_ROOT}/npc-dataset-utils/configs/npc-dataset-utils"

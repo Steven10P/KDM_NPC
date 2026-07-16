@@ -54,7 +54,11 @@ def build_zip_and_manifest():
             class_counts[semantic_name] = len(files)
             for file_name in files:
                 src_path = os.path.join(src_dir, file_name)
-                arcname = f"gtsrb_processed/{semantic_name}/{file_name}"
+                # SIN prefijo "gtsrb_processed/" -- Kaggle ya envuelve el
+                # contenido extraido en una carpeta con el nombre del zip
+                # (verificado en Kaggle: incluir el prefijo aqui produce
+                # doble anidamiento gtsrb_processed/gtsrb_processed/<clase>/).
+                arcname = f"{semantic_name}/{file_name}"
                 zf.write(src_path, arcname)
 
                 with open(src_path, "rb") as f:
