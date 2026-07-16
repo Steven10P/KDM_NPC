@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-15
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: ✅ Fase A completa (2026-07-16) — ganador: `search-lr3e4` (`lr_kdm=3e-4`)
+**Status**: ✅ Fase A + Fase A2 completas (2026-07-16) — ganador: `search-lr3e4-sig05` (`lr_kdm=3e-4`, `sigma_mult=0.5`) — Fase B pendiente de aprobación
 
 ## Fase A — resultado completo (9/9 corridas)
 
@@ -47,23 +47,81 @@ Ninguna corrida de confirmación combinada es necesaria — la diferencia es
 tan grande (99.95% vs. la segunda mejor, 60.0%) que no hay ambigüedad de
 interacción no-aditiva que resolver, a diferencia de `exp_03`.
 
+## Fase A2 — resultado completo (4/4 corridas), `lr_kdm=3e-4` fijo
+
+Segunda vuelta del barrido uno-a-la-vez, ahora con `lr_kdm=3e-4` (el
+ganador de Fase A) **fijo** en las 4 corridas — las corridas originales de
+estos mismos ejes (`search-ncf172`, `search-ncf645`, `search-sig05`,
+`search-npv15` en la tabla de Fase A) se hicieron con `lr_kdm=3e-3` (roto),
+así que no aislaban el efecto real de cada eje. `sigma_mult=2.0` se omitió
+del re-barrido: ya había evidencia fuerte (`exp_03` en MNIST + el propio
+`search-sig20` de Fase A) de que ensanchar el kernel perjudica
+independientemente de la tasa de aprendizaje, no hacía falta reconfirmar.
+
+| Condición | n_comp_per_value | n_comp_final | sigma_mult | Acc. suma | Acc. atributos | TV | Estado |
+|---|---|---|---|---|---|---|---|
+| search-lr3e4 (referencia, Fase A) | 10 | 430 | 1.0 | 99.95% | 99.97% | 0.0488 | converge |
+| search-lr3e4-ncf172 | 10 | 172 | 1.0 | 99.92% | 95.89% | 0.0711 | converge, peor que la referencia en ambos ejes |
+| search-lr3e4-ncf645 | 10 | 645 | 1.0 | 99.90% | 99.87% | 0.0453 | converge, TV levemente mejor, accuracy levemente peor |
+| **search-lr3e4-sig05** | **10** | **430** | **0.5** | **99.95%** | **99.95%** | **0.0025** | **converge, TV ~19× mejor que la referencia** |
+| search-lr3e4-npv15 | 15 | 430 | 1.0 | 99.92% | 96.71% | 0.0612 | converge, con inestabilidad transitoria en época 10 |
+
+**Hallazgo central: `sigma_mult` es el eje decisivo de Fase A2 — y la
+dirección es opuesta a lo que asumía el baseline heredado de MNIST.**
+`search-lr3e4-sig05` (kernel RBF más angosto, `sigma_mult=0.5`) da
+exactamente la misma accuracy de clasificación que la referencia
+(`0.9994899260392757` en ambas corridas, idéntico hasta el último dígito)
+pero con una **TV distance 19.4× menor** (0.0025 vs. 0.0488) — el modelo no
+solo acierta la clase, además queda mucho mejor calibrado. Esto confirma
+directamente la Hipótesis H2a de este experimento (§2 abajo): el `sigma_mult`
+óptimo en GTSRB **sí difiere** del óptimo en MNIST-Addition (`exp_03`, donde
+`1.0` ya era el mejor valor y `2.0` degradaba fuerte) — bajo ruido real de
+imagen, un kernel más angosto ayuda en vez de perjudicar.
+
+Los otros dos ejes dan señal más débil: escalar `n_comp_final` entre 172 y
+645 mantiene la accuracy siempre por encima de 99.85% (ninguna corrida
+diverge, a diferencia de Fase A con `lr_kdm=3e-3`), con una tendencia leve a
+mejor TV con más componentes — consistente con la nota metodológica de este
+`DESIGN.md` (§1): GTSRB no tiene colisión combinatoria tipo "suma" como
+MNIST-Addition, así que el espacio de salida no necesita mucha capacidad
+extra en la capa final. `search-lr3e4-npv15` (más componentes de
+inicialización por valor) muestra una inestabilidad transitoria real —
+`val_loss` salta a 8.301 y `val_accuracy` colapsa a 5.36% en la época 10,
+antes de recuperarse a 99.97% en la época 15 (ver
+`results/_kaggle_output_search-lr3e4-npv15/results/search-lr3e4-npv15_seed42/metrics.json`)
+— evidencia de que más componentes de init pueden desestabilizar
+momentáneamente el entrenamiento incluso con la tasa de aprendizaje
+correcta, aunque el resultado final no se ve afectado en este caso.
+
+**Decisión: nuevo candidato preferido para Fase B = `search-lr3e4-sig05`**
+(`n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4, sigma_mult=0.5`),
+reemplazando a `search-lr3e4` como configuración recomendada — domina en
+TV distance sin ceder nada en accuracy. La pregunta abierta que dejó Fase A
+sobre si valía la pena una corrida adicional de `n_comp_final` bajo
+combinado con la tasa correcta queda respondida por `search-lr3e4-ncf172`:
+no hay ganancia, incluso pierde en ambos ejes frente a la referencia.
+
 ## Próximos pasos: Fase B (pendiente de aprobación)
 
-Con Fase A cerrada, el siguiente paso del protocolo (`DESIGN.md §5`,
-`IMPLEMENTATION.md §4`) es **Fase B**: confirmación a escala completa con
-la configuración ganadora — 60 épocas × 5 semillas (42, 52, 62, 72, 82),
-igual que `exp_03`. **No se ha lanzado todavía** — queda pendiente de
-aprobación explícita antes de comprometer ~5× el cómputo de GPU ya usado
-en Fase A (9 corridas cortas ≈ 3h; Fase B completa ≈ 5h más).
+Con Fase A y Fase A2 cerradas, el siguiente paso del protocolo
+(`DESIGN.md §5`, `IMPLEMENTATION.md §4`) es **Fase B**: confirmación a
+escala completa con la configuración ganadora — **`search-lr3e4-sig05`**
+(`n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4, sigma_mult=0.5`),
+60 épocas × 5 semillas (42, 52, 62, 72, 82), igual que `exp_03`. **No se ha
+lanzado todavía** — queda pendiente de aprobación explícita antes de
+comprometer ~5× el cómputo de GPU ya usado en Fase A + A2 (13 corridas
+cortas ≈ 4.3h; Fase B completa ≈ 5h más).
 
 Antes de lanzar, vale la pena decidir explícitamente:
-- Si vale la pena una corrida corta adicional probando `n_comp_final`
-  más bajo (ej. 172-290) **combinado con** `lr_kdm=3e-4` — dado que
-  `search-ncf172` fue la única otra corrida con señales de recuperación,
-  y ese eje nunca se probó junto con la tasa de aprendizaje correcta.
-- Si 60 épocas siguen siendo razonables dado que `search-lr3e4` ya llega a
-  99.95% en solo 15 épocas (posible sobre-entrenamiento a 60 épocas, o
-  margen para converger aún más si TV sigue bajando).
+- Si 60 épocas siguen siendo razonables dado que `search-lr3e4-sig05` ya
+  llega a TV=0.0025 en solo 15 épocas (posible sobre-entrenamiento a 60
+  épocas, aunque también posible que la accuracy/TV sigan mejorando un
+  poco más — a diferencia de la referencia original, acá no hay señal de
+  saturación clara todavía).
+- Si vale la pena una quinta corrida corta de confirmación combinando
+  `sigma_mult=0.5` con `n_comp_final=645` (el otro eje con señal positiva,
+  aunque débil) antes de comprometer Fase B — Fase A2 no probó esta
+  combinación, solo cada eje por separado contra la referencia.
 
 ---
 
