@@ -4,7 +4,7 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-15
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: ✅ Fase A + Fase A2 + confirmación completas (2026-07-16) — ganador final: `search-lr3e4-sig05` (`lr_kdm=3e-4`, `sigma_mult=0.5`, ejes no aditivos confirmados) — Fase B pendiente de aprobación
+**Status**: 🔄 Fase B en curso (2026-07-16) — ganador confirmado: `search-lr3e4-sig05` (`lr_kdm=3e-4`, `sigma_mult=0.5`) — aprobada por el usuario, lanzando 5 semillas × 60 épocas (2/5 corriendo: seed42, seed52)
 
 ## Fase A — resultado completo (9/9 corridas)
 
@@ -125,22 +125,20 @@ configuración final para Fase B.
 
 ## Próximos pasos: Fase B (pendiente de aprobación)
 
-Con Fase A, Fase A2 y la corrida de confirmación cerradas, el siguiente
-paso del protocolo (`DESIGN.md §5`, `IMPLEMENTATION.md §4`) es **Fase B**:
-confirmación a escala completa con la configuración ganadora —
-**`search-lr3e4-sig05`**
+Con Fase A, Fase A2 y la corrida de confirmación cerradas, **el usuario
+aprobó explícitamente lanzar Fase B** (2026-07-16): confirmación a escala
+completa con la configuración ganadora — **`search-lr3e4-sig05`**
 (`n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4, sigma_mult=0.5`),
-60 épocas × 5 semillas (42, 52, 62, 72, 82), igual que `exp_03`. **No se ha
-lanzado todavía** — queda pendiente de aprobación explícita antes de
-comprometer ~5× el cómputo de GPU ya usado en Fase A + A2 + confirmación
-(14 corridas cortas ≈ 4.5h; Fase B completa ≈ 5h más).
+60 épocas × 5 semillas (42, 52, 62, 72, 82), igual que `exp_03`.
 
-Antes de lanzar, vale la pena decidir explícitamente:
-- Si 60 épocas siguen siendo razonables dado que `search-lr3e4-sig05` ya
-  llega a TV=0.0025 en solo 15 épocas (posible sobre-entrenamiento a 60
-  épocas, aunque también posible que la accuracy/TV sigan mejorando un
-  poco más — a diferencia de la referencia original, acá no hay señal de
-  saturación clara todavía).
+**Estado del lanzamiento**: kernels generados vía `_generate_kernel.py
+--final` (carpetas `final-seed{42,52,62,72,82}`, commit `a300478`). Dado el
+límite de Kaggle de 2 sesiones GPU concurrentes, se lanzaron primero
+`final-seed42` y `final-seed52`; `final-seed62/72/82` quedan en cola para
+lanzarse cuando se liberen slots. A ~75-76s/época observado en Fase A/A2,
+60 épocas se estiman en ~75-80 min por semilla (vs. ~20-25 min de las
+corridas cortas de 15 épocas) — Fase B completa (5 semillas, con el límite
+de 2 concurrentes) toma varias horas de reloj.
   combinación, solo cada eje por separado contra la referencia.
 
 ---
