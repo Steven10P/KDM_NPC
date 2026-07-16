@@ -4,61 +4,66 @@
 **Project**: Tesis_KDM_NPC
 **Date**: 2026-07-15
 **Author**: Brayan Steven Peña Delgadillo
-**Status**: 🔄 Fase A en curso (2026-07-16) — dataset subido, pipeline validado, barrido de hiperparámetros corriendo
+**Status**: ✅ Fase A completa (2026-07-16) — ganador: `search-lr3e4` (`lr_kdm=3e-4`)
 
-## Resultado preliminar: `search-baseline` diverge
+## Fase A — resultado completo (9/9 corridas)
 
-La primera corrida de Fase A (`n_comp_per_value=10, n_comp_final=430,
-lr_kdm=3e-3, sigma_mult=1.0` — misma densidad de componentes que el
-ganador de `exp_03` en MNIST) **diverge**: la pérdida de train converge
-normalmente las primeras 3 épocas (3.45→1.89→1.47) y luego explota en la
-época 4 (5.25) y nunca se recupera (se mantiene en 5.2-6.4 el resto del
-entrenamiento). Resultado final: `classification_accuracy=8.3%`,
-`attribute_joint_accuracy=0.0%`, `mean_tv_distance=0.57`.
+**Hallazgo central**: de los 4 ejes barridos (`n_comp_per_value`,
+`n_comp_final`, `lr_kdm`, `sigma_mult`), **`lr_kdm` es, por lejos, el único
+que importa** — y de forma mucho más dramática que en `exp_03`/MNIST (ahí
+era "el eje más importante"; acá es la diferencia entre un modelo inútil y
+uno casi perfecto). El baseline heredado de MNIST (`lr_kdm=3e-3`) **diverge
+catastróficamente** en las 7 corridas que lo mantienen fijo — la pérdida
+converge bien las primeras épocas y luego explota sin recuperarse — porque
+el KDM final de GTSRB usa `dim_x=3120` (31× más grande que el `dim_x=100`
+de MNIST), y esa tasa de aprendizaje simplemente no es estable a esa
+escala. Bajarla a `lr_kdm=3e-4` (10× más chica que el ganador de MNIST)
+resuelve el problema por completo.
 
-**Esto confirma la hipótesis del diseño** (`DESIGN.md §2`, H1): los
-hiperparámetros ganadores de MNIST-Addition **no transfieren directamente**
-a GTSRB. `lr_kdm=3e-3` fue el ganador en MNIST precisamente porque MNIST
-tolera una tasa de aprendizaje agresiva sobre un espacio `dim_x=100`
-pequeño; GTSRB usa `dim_x=3120` (31× más grande) para el KDM final, lo que
-probablemente vuelve inestable la misma tasa de aprendizaje.
+| Condición | n_comp_per_value | n_comp_final | lr_kdm | sigma_mult | Acc. suma | Acc. atributos | TV | Estado |
+|---|---|---|---|---|---|---|---|---|
+| search-baseline | 10 | 430 | 3e-3 | 1.0 | 8.29% | 0.00% | 0.5726 | diverge (época 4) |
+| search-npv15 | 15 | 430 | 3e-3 | 1.0 | 9.05% | 0.00% | 0.5706 | diverge (época 6, tras 98.5% en época 5) |
+| search-npv20 | 20 | 430 | 3e-3 | 1.0 | 13.26% | 0.31% | 0.5505 | diverge (época 5) |
+| search-ncf172 | 10 | 172 | 3e-3 | 1.0 | 59.98% | 55.45% | 0.2056 | diverge parcial, se recupera algo tras época 10 |
+| search-ncf645 | 10 | 645 | 3e-3 | 1.0 | 12.09% | 4.34% | 0.5060 | diverge |
+| search-lr1e3 | 10 | 430 | 1e-3 | 1.0 | 8.62% | 0.00% | 0.5664 | diverge (época 3) |
+| **search-lr3e4** | **10** | **430** | **3e-4** | **1.0** | **99.95%** | **99.97%** | **0.0488** | **converge perfectamente** |
+| search-sig05 | 10 | 430 | 3e-3 | 0.5 | 18.72% | 4.31% | 0.5002 | diverge |
+| search-sig20 | 10 | 430 | 3e-3 | 2.0 | 11.04% | 0.00% | 0.5647 | diverge |
 
-## Resultado decisivo: `lr_kdm=3e-4` resuelve la divergencia por completo
+**Nota sobre `search-ncf172`**: es la única corrida (además de la
+ganadora) que muestra algo de recuperación — con menos componentes finales
+(172 vs. 430) el modelo tiene menos parámetros en la capa más grande, lo
+que aparentemente amortigua parcialmente la inestabilidad de
+`lr_kdm=3e-3`, aunque sin llegar a converger limpiamente. Es consistente
+con la hipótesis: más componentes finales = más parámetros sensibles a
+una tasa de aprendizaje demasiado alta.
 
-Confirmado con las 5 primeras corridas de Fase A: **las tres variantes de
-`lr_kdm ∈ {1e-3, 3e-3}` divergen** (baseline, `search-npv15`,
-`search-npv20`, `search-lr1e3` — todas con pérdida que cae bien las
-primeras 1-5 épocas y luego explota y nunca se recupera), mientras que
-**`search-lr3e4` (`lr_kdm=3e-4`, 10× más chico que el ganador de MNIST)
-converge de forma perfecta**: pérdida monótona decreciente las 15 épocas
-(3.40→1.28→0.84→...→0.13), sin ningún signo de inestabilidad.
+**Decisión (regla del §5)**: ganador de Fase A = mejor accuracy end-to-end
+entre las 9 corridas → **`search-lr3e4`**
+(`n_comp_per_value=10, n_comp_final=430, lr_kdm=3e-4, sigma_mult=1.0`).
+Ninguna corrida de confirmación combinada es necesaria — la diferencia es
+tan grande (99.95% vs. la segunda mejor, 60.0%) que no hay ambigüedad de
+interacción no-aditiva que resolver, a diferencia de `exp_03`.
 
-| Condición | lr_kdm | Resultado |
-|---|---|---|
-| search-baseline | 3e-3 | diverge (época 4) — accuracy 8.3% |
-| search-npv15 | 3e-3 | diverge (época 6, tras llegar a 98.5% en época 5) — accuracy 9.1% |
-| search-npv20 | 3e-3 | diverge (época 5) — accuracy 13.3% |
-| search-lr1e3 | 1e-3 | diverge (época 3) — accuracy 8.6% |
-| **search-lr3e4** | **3e-4** | **converge perfectamente — accuracy 99.95%, TV 0.0488** |
+## Próximos pasos: Fase B (pendiente de aprobación)
 
-Esto es más dramático que el hallazgo equivalente de `exp_03` en
-MNIST-Addition (ahí `lr_kdm` solo era "el eje más importante"; acá es
-literalmente la diferencia entre un modelo inútil y uno casi perfecto). La
-razón coincide con la hipótesis: el espacio `dim_x=3120` del KDM final de
-GTSRB es 31× más grande que el de MNIST, y una tasa de aprendizaje
-calibrada para ese espacio pequeño resulta catastróficamente inestable a
-esta escala.
+Con Fase A cerrada, el siguiente paso del protocolo (`DESIGN.md §5`,
+`IMPLEMENTATION.md §4`) es **Fase B**: confirmación a escala completa con
+la configuración ganadora — 60 épocas × 5 semillas (42, 52, 62, 72, 82),
+igual que `exp_03`. **No se ha lanzado todavía** — queda pendiente de
+aprobación explícita antes de comprometer ~5× el cómputo de GPU ya usado
+en Fase A (9 corridas cortas ≈ 3h; Fase B completa ≈ 5h más).
 
-**Nota metodológica importante**: las corridas restantes de Fase A
-(`search-ncf172`, `search-ncf645`, `search-sig05`, `search-sig20`) barren
-`n_comp_final`/`sigma_mult` manteniendo `lr_kdm=3e-3` fijo (el baseline
-original) — dado que ese valor de `lr_kdm` por sí solo ya causa divergencia
-catastrófica, es esperable que estas 4 corridas también diverjan, y no van
-a aislar limpiamente el efecto individual de esos otros ejes. Se completan
-igual por completitud del protocolo, pero la config ganadora de facto ya
-está clara, y el paso natural siguiente es una corrida de confirmación que
-combine `lr_kdm=3e-4` con `n_comp_final`/`sigma_mult` (en vez de con el
-baseline roto).
+Antes de lanzar, vale la pena decidir explícitamente:
+- Si vale la pena una corrida corta adicional probando `n_comp_final`
+  más bajo (ej. 172-290) **combinado con** `lr_kdm=3e-4` — dado que
+  `search-ncf172` fue la única otra corrida con señales de recuperación,
+  y ese eje nunca se probó junto con la tasa de aprendizaje correcta.
+- Si 60 épocas siguen siendo razonables dado que `search-lr3e4` ya llega a
+  99.95% en solo 15 épocas (posible sobre-entrenamiento a 60 épocas, o
+  margen para converger aún más si TV sigue bajando).
 
 ---
 

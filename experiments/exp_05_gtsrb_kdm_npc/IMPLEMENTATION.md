@@ -322,7 +322,15 @@ solo en Fase B)**:
    errores de sintaxis. **Quedan 2 TODOs explícitos en la plantilla** que
    solo se pueden llenar después del paso 2: `EXPECTED_GLOBAL_SHA256` y los
    conteos esperados de train/validate/test.
-5. ⏳ Correr las 10 corridas cortas de Fase A → elegir ganador (`DESIGN.md
-   §5`) — depende del paso 2 (dataset en Kaggle) y de GPU.
-6. ⏳ Si Fase A confirma un ganador: Fase B (5 semillas).
+5. ✅ Correr las 9 corridas cortas de Fase A → ganador **`search-lr3e4`**
+   (`lr_kdm=3e-4`, 99.95% accuracy) — ver `DESIGN.md` para la tabla
+   completa y el hallazgo central (el baseline heredado de MNIST,
+   `lr_kdm=3e-3`, diverge catastróficamente en GTSRB). Dos bugs reales
+   encontrados y corregidos en el camino, documentados en el historial de
+   commits: (a) el muestreo de inicialización necesitaba tolerar el
+   desbalance real de clase de GTSRB (`stratified_idx` con reemplazo), y
+   (b) un problema de registros fantasma de Kaggle tras fallos de cupo de
+   GPU (bloqueaba recrear kernels con el mismo slug — resuelto renombrando).
+6. ⏳ Fase B (5 semillas) — **pendiente de aprobación explícita** antes de
+   comprometer el cómputo de GPU (ver `DESIGN.md`, sección "Próximos pasos").
 7. ⏳ Copiar y adaptar los scripts de métricas de `exp_04` (§5) → informe final.
