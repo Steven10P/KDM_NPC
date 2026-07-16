@@ -122,6 +122,23 @@ for header_path in (f"{NPC_ROOT}/npc-dataset-utils/src/npc-dataset-utils/header.
     with open(header_path, "w") as f:
         f.write(patched)
 
+# dataset_file_extension_images default es ".jpg" (no matchea archivos
+# .png -> split.py deja el file_key CON extension, que es lo que
+# "accidentalmente" funcionaba para MNIST/.png). Para GTSRB los propios
+# autores instruyen explicitamente cambiar esto a ".png" (ver
+# external/npc-dataset-utils/docs/npc-dataset-utils/datasets/gtsrb.md) --
+# sin este patch, split.py revienta con KeyError porque gtsrb_split.json.gz
+# fue construido CON este ajuste (sus claves no llevan extension). Solo
+# npc-dataset-utils/header.py declara esta variable (npc-models/header.py no).
+dataset_utils_header = f"{NPC_ROOT}/npc-dataset-utils/src/npc-dataset-utils/header.py"
+with open(dataset_utils_header) as f:
+    content = f.read()
+patched = content.replace('dataset_file_extension_images = ".jpg"',
+                          'dataset_file_extension_images = ".png"')
+assert patched != content, dataset_utils_header
+with open(dataset_utils_header, "w") as f:
+    f.write(patched)
+
 utils_src = f"{NPC_ROOT}/npc-dataset-utils/src/npc-dataset-utils"
 run([sys.executable, "split.py"], cwd=utils_src, name="split")
 
